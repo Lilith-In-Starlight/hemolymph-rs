@@ -1,0 +1,25 @@
+[
+    (
+        name: "Vampire Mantis",
+        description: "Devours: Insect Kin with Bifurcated Strike\n\nUndead Kin\nBifurcated Strike\n\nWhen Killed: Gain one additional blood",
+        cost: 3,
+        health: 3,
+        defense: 2,
+        power: 2,
+        devours: (
+            kin: "insect",
+            keywords: ["bifurcated strike"],
+        ),
+        kin: "undead",
+        keywords: ["bifurcated strike"],
+        specificrules: "When Killed: Gain one additional blood.",
+        artist: "Katie Ampersand",
+        set: "The Forest",
+        legality: (
+            tournaments: "y",
+            bloodful: "y",
+            bloodless: "y",
+        ),
+        classifications: [],
+    ),
+]

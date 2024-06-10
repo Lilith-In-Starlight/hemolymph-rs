@@ -1,0 +1,82 @@
+[
+    {
+        "id": "0",
+        "name": "Vampire Mantis",
+        "description": "Devours: Insect Kin with Bifurcated Strike\n\nUndead Kin\nBifurcated Strike\n\nWhen Killed: Gain one additional blood",
+        "cost": 3,
+        "type": "creature",
+        "health": 3,
+        "defense": 2,
+        "power": 2,
+        "kins": ["undead"],
+        "keywords": [
+            {
+                "name": "devours",
+                "data": {
+                    "type": "CardID",
+                    "kins": ["insect"],
+                    "keywords": [
+                        {
+                            "name": "bifurcated strike"
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "bifurcated strike"
+            }
+        ],
+        "abilities": ["When Killed: Gain one additional blood."],
+        "artists": ["Katie Ampersand"],
+        "set": "The Forest",
+        "legality": {
+            "tournaments": "y",
+            "bloodful": "y",
+            "bloodless": "y"
+        },
+        "other": [], 
+        "functions": []
+    },
+    {
+        "id": "1",
+        "name": "Mosquito",
+        "description": "Insect Kin\n\nWhen this creature attacks and is blocked, gain one blood.",
+        "type": "creature",
+        "cost": 1,
+        "health": 1,
+        "defense": 1,
+        "power": 1,
+        "kins": ["insect"],
+        "abilities": ["When this creature attacks and is blocked, gain one blood."],
+        "artists": ["Katie Ampersand"],
+        "set": "The Forest",
+        "legality": {
+            "tournaments": "y",
+            "bloodful": "y",
+            "bloodless": "y"
+        },
+        "other": [],
+        "functions": ["gain blood"]
+    },
+    {
+        "id": "2",
+        "name": "Blue Queen",
+        "description": "Pay 1 blood for each creature that you wish to sacrifice. Sacrifice those creatures.",
+        "type": "command",
+        "cost": 0,
+        "health": 0,
+        "defense": 0,
+        "power": 0,
+        "kins": [],
+        "abilities": ["Pay 1 blood for each creature that you wish to sacrifice. Sacrifice those creatures."],
+        "artists": ["Katie Ampersand"],
+        "set": "The Kingdoms",
+        "legality": {
+            "tournaments": "y",
+            "bloodful": "y",
+            "bloodless": "y"
+        },
+        "other": [],
+        "functions": ["sacrifice creatures"]
+    }
+]
