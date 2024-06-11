@@ -142,7 +142,7 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": ["gain blood"]
+        "functions": ["attack creature"]
     },
     {
         "id": "6",
@@ -432,14 +432,14 @@
     {
         "id": "19",
         "name": "Grand Design",
-        "description": "Discard your hand. Search your deck for 3 command cards. Put them in your hand.",
+        "description": "Discard your hand. Search your deck for 3 command cards. Reveal them and put them in your hand.",
         "type": "command vestige",
         "cost": 6,
         "health": 0,
         "defense": 0,
         "power": 0,
         "kins": [],
-        "abilities": ["Discard your hand", "Search your deck for 3 command cards.", "Put them in your hand."],
+        "abilities": ["Discard your hand", "Search your deck for 3 command cards.", "Reveal them and put them in your hand.", "Shuffle."],
         "artists": ["Katie Ampersand"],
         "set": "The Forest",
         "legality": {
@@ -448,7 +448,7 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": ["discard hand", "search deck", "draw card"]
+        "functions": ["discard hand", "search deck", "draw card", "shuffle"]
     },
     {
         "id": "20",
@@ -581,7 +581,7 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": []
+        "functions": ["negate opponent blood gain", "gain blood"]
     },
     {
         "id": "24",
@@ -671,7 +671,7 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": []
+        "functions": ["negate legendary"]
     },
     {
         "id": "28",
@@ -714,7 +714,7 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": []
+        "functions": ["clutter opponent space"]
     },
     {
         "id": "31",
@@ -735,7 +735,7 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": []
+        "functions": ["skip opponent turn", "end turn", "skip attack phase"]
     },
     {
         "id": "32",
@@ -757,7 +757,7 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": []
+        "functions": ["move creature"]
     },
     {
         "id": "33",
@@ -801,7 +801,7 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": []
+        "functions": ["negate player damage", "change rules"]
     },
     {
         "id": "35",
@@ -908,7 +908,7 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": []
+        "functions": ["attack creature"]
     },
     {
         "id": "40",
@@ -950,7 +950,7 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": []
+        "functions": ["attack creature"]
     },
     {
         "id": "42",
@@ -971,7 +971,7 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": []
+        "functions": ["ensnare", "summon creature"]
     },
     {
         "id": "43",
@@ -997,14 +997,14 @@
     {
         "id": "44",
         "name": "Spellbook Of Luna",
-        "description": "Search your deck for up to 2 sorcery commands. Put them in your hand. Shuffle.",
+        "description": "Search your deck for up to 2 sorcery commands. Reveal them and put them in your hand. Shuffle.",
         "type": "command",
         "cost": 3,
         "health": 0,
         "defense": 0,
         "power": 0,
         "kins": [],
-        "abilities": ["Search your deck for up to 2 sorcery commands.", "Put them in your hand.", "Shuffle."],
+        "abilities": ["Search your deck for up to 2 sorcery commands.", "Reveal them and put them in your hand.", "Shuffle."],
         "artists": ["Katie Ampersand"],
         "set": "The Forest",
         "legality": {
@@ -1056,5 +1056,26 @@
         },
         "other": [],
         "functions": ["attack creature", "draw card"]
+    },
+    {
+        "id": "47",
+        "name": "Shattered Flask",
+        "description": "",
+        "type": "creature",
+        "cost": 0,
+        "health": 1,
+        "defense": 0,
+        "power": 0,
+        "kins": [],
+        "abilities": [],
+        "artists": ["Katie Ampersand"],
+        "set": "The Forest",
+        "legality": {
+            "tournaments": "y",
+            "bloodful": "y",
+            "bloodless": "y"
+        },
+        "other": [],
+        "functions": ["gain blood"]
     }
 ]
