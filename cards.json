@@ -367,7 +367,7 @@
         "defense": 0,
         "power": 0,
         "kins": [],
-        "abilities": ["Search your deck for a creature card of blood cost 1.\n\nPut it into play.\n\nShuffle."],
+        "abilities": ["Once per turn: Pick one friendly card to become Flying for one turn."],
         "artists": ["Katie Ampersand"],
         "set": "The Forest",
         "legality": {
