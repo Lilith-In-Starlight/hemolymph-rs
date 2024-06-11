@@ -1,13 +1,10 @@
 #![warn(clippy::pedantic)]
-mod cards;
-mod search;
 
 use actix_cors::Cors;
 use actix_web::{web, App, HttpResponse, HttpServer, Responder};
-use cards::Card;
-use rust_fuzzy_search::fuzzy_compare;
-use search::query_parser::query_parser;
-use search::{QueryParams, QueryRestriction};
+use hemoglobin::cards::Card;
+use hemoglobin::search::query_parser::query_parser;
+use hemoglobin::search::QueryParams;
 use serde::{Deserialize, Serialize};
 use std::fs;
 use std::sync::Arc;
@@ -61,43 +58,7 @@ async fn search(data: web::Data<AppState>, query: web::Query<QueryParams>) -> im
         return HttpResponse::Ok().json(results);
     };
 
-    let mut results: Vec<&Card> = results
-        .iter()
-        .filter(|card| {
-            let mut filtered = true;
-            for res in &query_restrictions {
-                match res {
-                    QueryRestriction::Fuzzy(x) => filtered = filtered && search::fuzzy(card, x),
-                    QueryRestriction::Comparison(field, comparison) => {
-                        filtered = filtered && comparison.compare(&field(card));
-                    }
-                    QueryRestriction::Contains(what, contains) => {
-                        filtered = filtered
-                            && what(card)
-                                .to_lowercase()
-                                .contains(contains.to_lowercase().as_str());
-                    }
-                    QueryRestriction::Has(fun, thing) => {
-                        let x = fun(card);
-                        filtered = filtered && x.iter().any(|x| x.contains(thing));
-                    }
-                    QueryRestriction::HasKw(fun, thing) => {
-                        let x = fun(card);
-                        filtered = filtered && x.iter().any(|x| x.name.contains(thing));
-                    }
-                }
-            }
-            filtered
-        })
-        .collect();
-
-    let name = &query.query.clone().unwrap_or_default();
-
-    results.sort_by(|a, b| {
-        weighted_compare(b, name)
-            .partial_cmp(&weighted_compare(a, name))
-            .unwrap_or(std::cmp::Ordering::Equal)
-    });
+    let results = hemoglobin::apply_restrictions(query_restrictions.as_slice(), &results);
 
     let results = QueryResult::CardList { content: results };
 
@@ -110,22 +71,4 @@ async fn view_card(data: web::Data<AppState>, query: web::Query<IdViewParam>) ->
     let results: Vec<&Card> = results.iter().filter(|card| card.id == query.id).collect();
 
     HttpResponse::Ok().json(results.first().unwrap())
-}
-
-fn weighted_compare(a: &Card, b: &str) -> f32 {
-    fuzzy_compare(&a.name, b) * 2.
-        + fuzzy_compare(&a.r#type, b) * 1.8
-        + fuzzy_compare(&a.description, b) * 1.6
-        + a.kins
-            .iter()
-            .map(|x| fuzzy_compare(x, b))
-            .max_by(|a, b| PartialOrd::partial_cmp(a, b).unwrap_or(std::cmp::Ordering::Less))
-            .unwrap_or(0.0)
-            * 1.5
-        + a.keywords
-            .iter()
-            .map(|x| fuzzy_compare(&x.name, b))
-            .max_by(|a, b| PartialOrd::partial_cmp(a, b).unwrap_or(std::cmp::Ordering::Less))
-            .unwrap_or(0.0)
-            * 1.2
 }
