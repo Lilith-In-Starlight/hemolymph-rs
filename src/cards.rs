@@ -40,6 +40,12 @@ impl Card {
     pub fn get_type(&self) -> &str {
         &self.r#type
     }
+    pub fn get_kins(&self) -> &[String] {
+        &self.kins
+    }
+    pub fn get_keywords(&self) -> &[Keyword] {
+        &self.keywords
+    }
     pub fn get_health(&self) -> usize {
         self.health
     }

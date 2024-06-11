@@ -2,7 +2,6 @@
 mod cards;
 mod search;
 
-use crate::search::fuzzy_search;
 use actix_cors::Cors;
 use actix_web::{web, App, HttpResponse, HttpServer, Responder};
 use cards::Card;
@@ -55,8 +54,7 @@ async fn main() -> std::io::Result<()> {
 async fn search(data: web::Data<AppState>, query: web::Query<QueryParams>) -> impl Responder {
     let results = data.cards.read().await;
 
-    let Ok(query_restrictions) = query_parser(&query.query.as_ref().cloned().unwrap_or_default())
-    else {
+    let Ok(query_restrictions) = query_parser(&query.query.clone().unwrap_or_default()) else {
         let results = QueryResult::Error {
             message: "Query couldn't be parsed".to_string(),
         };
@@ -69,15 +67,23 @@ async fn search(data: web::Data<AppState>, query: web::Query<QueryParams>) -> im
             let mut filtered = true;
             for res in &query_restrictions {
                 match res {
-                    QueryRestriction::Fuzzy(x) => filtered = filtered && fuzzy_search(card, &x),
+                    QueryRestriction::Fuzzy(x) => filtered = filtered && search::fuzzy(card, x),
                     QueryRestriction::Comparison(field, comparison) => {
-                        filtered = filtered && comparison.compare(field(card));
+                        filtered = filtered && comparison.compare(&field(card));
                     }
                     QueryRestriction::Contains(what, contains) => {
                         filtered = filtered
                             && what(card)
                                 .to_lowercase()
-                                .contains(contains.to_lowercase().as_str())
+                                .contains(contains.to_lowercase().as_str());
+                    }
+                    QueryRestriction::Has(fun, thing) => {
+                        let x = fun(card);
+                        filtered = filtered && x.iter().any(|x| x.contains(thing));
+                    }
+                    QueryRestriction::HasKw(fun, thing) => {
+                        let x = fun(card);
+                        filtered = filtered && x.iter().any(|x| x.name.contains(thing));
                     }
                 }
             }
@@ -85,11 +91,11 @@ async fn search(data: web::Data<AppState>, query: web::Query<QueryParams>) -> im
         })
         .collect();
 
-    let name = &query.query.as_ref().cloned().unwrap_or_default();
+    let name = &query.query.clone().unwrap_or_default();
 
     results.sort_by(|a, b| {
-        weighted_compare(&b, &name)
-            .partial_cmp(&weighted_compare(&a, name))
+        weighted_compare(b, name)
+            .partial_cmp(&weighted_compare(a, name))
             .unwrap_or(std::cmp::Ordering::Equal)
     });
 
@@ -107,18 +113,18 @@ async fn view_card(data: web::Data<AppState>, query: web::Query<IdViewParam>) ->
 }
 
 fn weighted_compare(a: &Card, b: &str) -> f32 {
-    fuzzy_compare(&a.name, &b) * 2.
-        + fuzzy_compare(&a.r#type, &b) * 1.8
-        + fuzzy_compare(&a.description, &b) * 1.6
+    fuzzy_compare(&a.name, b) * 2.
+        + fuzzy_compare(&a.r#type, b) * 1.8
+        + fuzzy_compare(&a.description, b) * 1.6
         + a.kins
             .iter()
-            .map(|x| fuzzy_compare(x, &b))
+            .map(|x| fuzzy_compare(x, b))
             .max_by(|a, b| PartialOrd::partial_cmp(a, b).unwrap_or(std::cmp::Ordering::Less))
             .unwrap_or(0.0)
             * 1.5
         + a.keywords
             .iter()
-            .map(|x| fuzzy_compare(&x.name, &b))
+            .map(|x| fuzzy_compare(&x.name, b))
             .max_by(|a, b| PartialOrd::partial_cmp(a, b).unwrap_or(std::cmp::Ordering::Less))
             .unwrap_or(0.0)
             * 1.2
