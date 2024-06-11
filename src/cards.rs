@@ -6,6 +6,8 @@ use serde::{Deserialize, Serialize};
 pub struct Card {
     pub id: String,
     pub name: String,
+    #[serde(default)]
+    pub img: Vec<String>,
     pub description: String,
     pub cost: usize,
     pub health: usize,
@@ -32,10 +34,25 @@ impl Card {
     pub fn get_cost(&self) -> usize {
         self.cost
     }
+    pub fn get_name(&self) -> &str {
+        &self.name
+    }
+    pub fn get_type(&self) -> &str {
+        &self.r#type
+    }
+    pub fn get_health(&self) -> usize {
+        self.health
+    }
+    pub fn get_power(&self) -> usize {
+        self.power
+    }
+    pub fn get_defense(&self) -> usize {
+        self.defense
+    }
 }
 
 #[derive(Deserialize, Serialize, Debug)]
-struct CardID {
+pub struct CardID {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]

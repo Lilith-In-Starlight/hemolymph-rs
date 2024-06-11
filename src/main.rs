@@ -6,8 +6,10 @@ use crate::search::fuzzy_search;
 use actix_cors::Cors;
 use actix_web::{web, App, HttpResponse, HttpServer, Responder};
 use cards::Card;
-use search::QueryParams;
-use serde::Deserialize;
+use rust_fuzzy_search::fuzzy_compare;
+use search::query_parser::query_parser;
+use search::{QueryParams, QueryRestriction};
+use serde::{Deserialize, Serialize};
 use std::fs;
 use std::sync::Arc;
 use tokio::sync::RwLock;
@@ -16,94 +18,16 @@ struct AppState {
     cards: Arc<RwLock<Vec<Card>>>,
 }
 
-enum Errors {
-    InvalidComparisonString,
-}
-
-#[derive(Deserialize)]
-enum Comparison {
-    GreaterThan,
-    Equal,
-    LowerThan,
-    NotEqual,
-}
-
-enum Restriction {
-    Name(String),
-    Kin(String),
-    Cost(Comparison),
+#[derive(Serialize)]
+#[serde(tag = "type")]
+pub enum QueryResult<'a> {
+    CardList { content: Vec<&'a Card> },
+    Error { message: String },
 }
 
 #[derive(Deserialize)]
 struct IdViewParam {
     id: String,
-}
-
-fn compare<T: PartialOrd>(a: &T, b: &T, comparison: &Comparison) -> bool {
-    match comparison {
-        Comparison::GreaterThan => a.gt(b),
-        Comparison::Equal => a.eq(b),
-        Comparison::LowerThan => a.lt(b),
-        Comparison::NotEqual => a.ne(b),
-    }
-}
-
-fn text_comparison_parser(s: &str) -> Result<(Comparison, usize), Errors> {
-    match s.parse::<usize>() {
-        Ok(x) => Ok((Comparison::Equal, x)),
-        Err(_) => {
-            if let Some(end) = s.strip_prefix('>') {
-                end.parse::<usize>()
-                    .map(|x| (Comparison::GreaterThan, x))
-                    .map_err(|_| Errors::InvalidComparisonString)
-            } else if let Some(end) = s.strip_prefix('<') {
-                end.parse::<usize>()
-                    .map(|x| (Comparison::LowerThan, x))
-                    .map_err(|_| Errors::InvalidComparisonString)
-            } else if let Some(end) = s.strip_prefix('=') {
-                end.parse::<usize>()
-                    .map(|x| (Comparison::Equal, x))
-                    .map_err(|_| Errors::InvalidComparisonString)
-            } else if let Some(end) = s.strip_prefix("!=") {
-                end.parse::<usize>()
-                    .map(|x| (Comparison::NotEqual, x))
-                    .map_err(|_| Errors::InvalidComparisonString)
-            } else {
-                Err(Errors::InvalidComparisonString)
-            }
-        }
-    }
-}
-
-fn filter_comparison<V: Fn(&Card) -> usize>(
-    card: &Card,
-    property: V,
-    comparison: &Option<(Comparison, usize)>,
-) -> bool {
-    if let Some(comparison) = comparison {
-        compare(&property(card), &comparison.1, &comparison.0)
-    } else {
-        true
-    }
-}
-
-async fn search(data: web::Data<AppState>, query: web::Query<QueryParams>) -> impl Responder {
-    let results = data.cards.read().await;
-
-    let results: Vec<&Card> = results
-        .iter()
-        .filter(|card| fuzzy_search(card, &query))
-        .collect();
-
-    HttpResponse::Ok().json(results)
-}
-
-async fn view_card(data: web::Data<AppState>, query: web::Query<IdViewParam>) -> impl Responder {
-    let results = data.cards.read().await;
-
-    let results: Vec<&Card> = results.iter().filter(|card| card.id == query.id).collect();
-
-    HttpResponse::Ok().json(results.first().unwrap())
 }
 
 #[actix_web::main]
@@ -126,4 +50,76 @@ async fn main() -> std::io::Result<()> {
     .bind("127.0.0.1:3000")?
     .run()
     .await
+}
+
+async fn search(data: web::Data<AppState>, query: web::Query<QueryParams>) -> impl Responder {
+    let results = data.cards.read().await;
+
+    let Ok(query_restrictions) = query_parser(&query.query.as_ref().cloned().unwrap_or_default())
+    else {
+        let results = QueryResult::Error {
+            message: "Query couldn't be parsed".to_string(),
+        };
+        return HttpResponse::Ok().json(results);
+    };
+
+    let mut results: Vec<&Card> = results
+        .iter()
+        .filter(|card| {
+            let mut filtered = true;
+            for res in &query_restrictions {
+                match res {
+                    QueryRestriction::Fuzzy(x) => filtered = filtered && fuzzy_search(card, &x),
+                    QueryRestriction::Comparison(field, comparison) => {
+                        filtered = filtered && comparison.compare(field(card));
+                    }
+                    QueryRestriction::Contains(what, contains) => {
+                        filtered = filtered
+                            && what(card)
+                                .to_lowercase()
+                                .contains(contains.to_lowercase().as_str())
+                    }
+                }
+            }
+            filtered
+        })
+        .collect();
+
+    let name = &query.query.as_ref().cloned().unwrap_or_default();
+
+    results.sort_by(|a, b| {
+        weighted_compare(&b, &name)
+            .partial_cmp(&weighted_compare(&a, name))
+            .unwrap_or(std::cmp::Ordering::Equal)
+    });
+
+    let results = QueryResult::CardList { content: results };
+
+    HttpResponse::Ok().json(results)
+}
+
+async fn view_card(data: web::Data<AppState>, query: web::Query<IdViewParam>) -> impl Responder {
+    let results = data.cards.read().await;
+
+    let results: Vec<&Card> = results.iter().filter(|card| card.id == query.id).collect();
+
+    HttpResponse::Ok().json(results.first().unwrap())
+}
+
+fn weighted_compare(a: &Card, b: &str) -> f32 {
+    fuzzy_compare(&a.name, &b) * 2.
+        + fuzzy_compare(&a.r#type, &b) * 1.8
+        + fuzzy_compare(&a.description, &b) * 1.6
+        + a.kins
+            .iter()
+            .map(|x| fuzzy_compare(x, &b))
+            .max_by(|a, b| PartialOrd::partial_cmp(a, b).unwrap_or(std::cmp::Ordering::Less))
+            .unwrap_or(0.0)
+            * 1.5
+        + a.keywords
+            .iter()
+            .map(|x| fuzzy_compare(&x.name, &b))
+            .max_by(|a, b| PartialOrd::partial_cmp(a, b).unwrap_or(std::cmp::Ordering::Less))
+            .unwrap_or(0.0)
+            * 1.2
 }
