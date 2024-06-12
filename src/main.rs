@@ -1,7 +1,7 @@
 #![warn(clippy::pedantic)]
 
 use actix_cors::Cors;
-use actix_files::NamedFile;
+use actix_files::{Files, NamedFile};
 use actix_web::{web, App, HttpRequest, HttpResponse, HttpServer, Responder};
 use hemoglobin::cards::Card;
 use hemoglobin::search::query_parser::query_parser;
@@ -95,6 +95,7 @@ async fn main() -> std::io::Result<()> {
             .app_data(app_state.clone())
             .route("/api/search", web::get().to(search))
             .route("/api/card", web::get().to(view_card))
+            .service(Files::new("/", "dist").index_file("index.html"))
             .default_service(web::route().to(serve_index))
     })
     .bind(format!("{host}:{port}"))?
