@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+    <style>
+        #logo {
+            width: 100%;
+            object-fit: cover;
+        }
+        #search {
+            width: 80%;
+            margin: auto;
+            padding-bottom: 20px;
+            display: grid;
+            grid-template-columns: 10% auto;
+            grid-column-gap: 20px;
+        }
+        #details {
+            display: grid;
+            margin: auto;
+            width: 50%;
+            justify-content: stretch;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            grid-column-gap: 20px;
+        }
+        #results {
+            margin: auto;
+            width: 70%;
+            grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+            column-gap: 10px;
+            row-gap: 10px;
+            display: grid;
+        }
+        #text-description {
+            grid-column-start: 2;
+        }
+        #details-preview {
+            width: 400px;
+        }
+        .card-result {
+            width: 200px;
+            border: black solid 3px;
+            border-radius: 10px;
+        }
+    </style>
+    <head>
+        <meta charset="utf-8" />
+        <title>Hemolymph</title>
+    
+<link rel="modulepreload" href="/hemolymph-frontend-2163bb4ea491be83.js" crossorigin=anonymous >
+<link rel="preload" href="/hemolymph-frontend-2163bb4ea491be83_bg.wasm" crossorigin=anonymous as="fetch" type="application/wasm"></head>
+    <body>
+<script type="module" nonce="+hE5fQvepiHeEw7QXkP84w==">
+import init, * as bindings from '/hemolymph-frontend-2163bb4ea491be83.js';
+const wasm = await init('/hemolymph-frontend-2163bb4ea491be83_bg.wasm');
+
+
+window.wasmBindings = bindings;
+
+
+dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
+
+</script></body>
+</html>
