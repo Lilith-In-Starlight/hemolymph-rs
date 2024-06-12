@@ -45,7 +45,7 @@ async fn main() -> std::io::Result<()> {
             .route("/api/card", web::get().to(view_card))
             .service(Files::new("/", "dist").index_file("index.html"))
     })
-    .bind("127.0.0.1:3000")?
+    .bind("127.0.0.1:8080")?
     .run()
     .await
 }
