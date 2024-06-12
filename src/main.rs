@@ -8,7 +8,7 @@ use hemoglobin::search::query_parser::query_parser;
 use hemoglobin::search::QueryParams;
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;
-use std::{fs, io};
+use std::{env, fs, io};
 use tokio::sync::RwLock;
 
 struct AppState {
@@ -43,6 +43,17 @@ async fn main() -> std::io::Result<()> {
         cards: Arc::new(RwLock::new(cards)),
     });
 
+    let environment = env::var("RUST_ENV").unwrap_or_else(|_| "development".to_string());
+    let env_file = match environment.as_str() {
+        "production" => ".env.production",
+        _ => ".env",
+    };
+    dotenv::from_filename(env_file).ok();
+
+    // Read the HOST and PORT variables
+    let host = env::var("HOST").unwrap_or_else(|_| "127.0.0.1".to_string());
+    let port = env::var("PORT").unwrap_or_else(|_| "8080".to_string());
+
     HttpServer::new(move || {
         let cors = Cors::default().allow_any_origin();
         App::new()
@@ -53,7 +64,7 @@ async fn main() -> std::io::Result<()> {
             .service(Files::new("/", "dist").index_file("index.html"))
             .default_service(web::route().to(serve_index))
     })
-    .bind("104.248.54.50:80")?
+    .bind(format!("{host}:{port}"))?
     .run()
     .await
 }
