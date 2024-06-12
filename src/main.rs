@@ -1,14 +1,19 @@
 #![warn(clippy::pedantic)]
 
 use actix_cors::Cors;
-use actix_files::{Files, NamedFile};
+use actix_files::NamedFile;
 use actix_web::{web, App, HttpRequest, HttpResponse, HttpServer, Responder};
 use hemoglobin::cards::Card;
 use hemoglobin::search::query_parser::query_parser;
 use hemoglobin::search::QueryParams;
+use notify::RecursiveMode;
+use notify_debouncer_mini::new_debouncer;
 use serde::{Deserialize, Serialize};
+use std::path::Path;
 use std::sync::Arc;
+use std::time::Duration;
 use std::{env, fs, io};
+use tokio::runtime::Runtime;
 use tokio::sync::RwLock;
 
 struct AppState {
@@ -29,6 +34,7 @@ struct IdViewParam {
 
 async fn serve_index(req: HttpRequest) -> io::Result<HttpResponse> {
     // Here, we ignore the request path and always serve index.html
+
     let file = NamedFile::open("./dist/index.html")?.use_last_modified(true);
     let response = file.into_response(&req);
     Ok(response)
@@ -54,6 +60,34 @@ async fn main() -> std::io::Result<()> {
     let host = env::var("HOST").unwrap_or_else(|_| "127.0.0.1".to_string());
     let port = env::var("PORT").unwrap_or_else(|_| "8080".to_string());
 
+    let cards_pointer = Arc::clone(&app_state.cards);
+
+    if environment.as_str() == "production" {
+        tokio::spawn(async move {
+            let (tx, rx) = std::sync::mpsc::channel();
+            let mut debouncer = new_debouncer(Duration::from_secs(1), tx).unwrap();
+            debouncer
+                .watcher()
+                .watch(Path::new("cards.json"), RecursiveMode::Recursive)
+                .unwrap();
+
+            loop {
+                match rx.recv() {
+                    Ok(_) => {
+                        let data = fs::read_to_string("cards.json").expect("Unable to read file");
+                        match serde_json::from_str::<Vec<Card>>(&data) {
+                            Ok(data) => {
+                                let mut cards = cards_pointer.write().await;
+                                *cards = data;
+                            }
+                            Err(x) => eprintln!("{x:#?}"),
+                        }
+                    }
+                    Err(_) => println!("boowomp"),
+                }
+            }
+        });
+    }
     HttpServer::new(move || {
         let cors = Cors::default().allow_any_origin();
         App::new()
@@ -61,7 +95,6 @@ async fn main() -> std::io::Result<()> {
             .app_data(app_state.clone())
             .route("/api/search", web::get().to(search))
             .route("/api/card", web::get().to(view_card))
-            .service(Files::new("/", "dist").index_file("index.html"))
             .default_service(web::route().to(serve_index))
     })
     .bind(format!("{host}:{port}"))?
