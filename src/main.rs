@@ -53,7 +53,7 @@ async fn main() -> std::io::Result<()> {
             .service(Files::new("/", "dist").index_file("index.html"))
             .default_service(web::route().to(serve_index))
     })
-    .bind("167.99.224.1:8080")?
+    .bind("104.248.54.50:8080")?
     .run()
     .await
 }
