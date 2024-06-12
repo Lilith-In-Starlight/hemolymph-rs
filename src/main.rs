@@ -33,11 +33,23 @@ struct IdViewParam {
 }
 
 async fn serve_index(req: HttpRequest) -> io::Result<HttpResponse> {
-    // Here, we ignore the request path and always serve index.html
-
-    let file = NamedFile::open("./dist/index.html")?.use_last_modified(true);
-    let response = file.into_response(&req);
-    Ok(response)
+    let path = req.path().trim();
+    println!("{}", path.ends_with(".js"));
+    if path.ends_with(".js") {
+        let content = fs::read_to_string(format!("dist/{}", path))?;
+        Ok(HttpResponse::Ok()
+            .content_type("application/javascript; charset=utf-8")
+            .body(content))
+    } else if path.ends_with(".wasm") {
+        let content = fs::read(format!("dist/{}", path))?;
+        Ok(HttpResponse::Ok()
+            .content_type("application/wasm")
+            .body(content))
+    } else {
+        let file = NamedFile::open("./dist/index.html")?.use_last_modified(true);
+        let response = file.into_response(&req);
+        Ok(response)
+    }
 }
 
 #[actix_web::main]
@@ -95,7 +107,6 @@ async fn main() -> std::io::Result<()> {
             .app_data(app_state.clone())
             .route("/api/search", web::get().to(search))
             .route("/api/card", web::get().to(view_card))
-            .service(Files::new("/", "dist").index_file("index.html"))
             .default_service(web::route().to(serve_index))
     })
     .bind(format!("{host}:{port}"))?
