@@ -1077,5 +1077,26 @@
         },
         "other": [],
         "functions": ["gain blood"]
+    },
+    {
+        "id": "48",
+        "name": "Bee",
+        "description": "Bee Kin\nKin Strength\n\nThis creature is destroyed after it attacks.",
+        "type": "creature",
+        "cost": 1,
+        "health": 1,
+        "defense": 0,
+        "power": 0,
+        "kins": ["bee", "insect"],
+        "abilities": ["This creature is destroyed after it attacks."],
+        "artists": ["Katie Ampersand"],
+        "set": "The Forest",
+        "legality": {
+            "tournaments": "y",
+            "bloodful": "y",
+            "bloodless": "y"
+        },
+        "other": [],
+        "functions": []
     }
 ]
