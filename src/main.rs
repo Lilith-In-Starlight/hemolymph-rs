@@ -1,14 +1,14 @@
 #![warn(clippy::pedantic)]
 
 use actix_cors::Cors;
-use actix_files::Files;
-use actix_web::{web, App, HttpResponse, HttpServer, Responder};
+use actix_files::{Files, NamedFile};
+use actix_web::{web, App, HttpRequest, HttpResponse, HttpServer, Responder};
 use hemoglobin::cards::Card;
 use hemoglobin::search::query_parser::query_parser;
 use hemoglobin::search::QueryParams;
 use serde::{Deserialize, Serialize};
-use std::fs;
 use std::sync::Arc;
+use std::{fs, io};
 use tokio::sync::RwLock;
 
 struct AppState {
@@ -25,6 +25,13 @@ pub enum QueryResult<'a> {
 #[derive(Deserialize)]
 struct IdViewParam {
     id: String,
+}
+
+async fn serve_index(req: HttpRequest) -> io::Result<HttpResponse> {
+    // Here, we ignore the request path and always serve index.html
+    let file = NamedFile::open("./dist/index.html")?.use_last_modified(true);
+    let response = file.into_response(&req);
+    Ok(response)
 }
 
 #[actix_web::main]
@@ -44,8 +51,9 @@ async fn main() -> std::io::Result<()> {
             .route("/api/search", web::get().to(search))
             .route("/api/card", web::get().to(view_card))
             .service(Files::new("/", "dist").index_file("index.html"))
+            .default_service(web::route().to(serve_index))
     })
-    .bind("127.0.0.1:8080")?
+    .bind("127.0.0.1:3000")?
     .run()
     .await
 }

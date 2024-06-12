@@ -1,6 +1,10 @@
 <!doctype html>
 <html>
     <style>
+		@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+		body {
+			font-family: "Noto Sans", sans-serif;
+		}
         #logo {
             width: 100%;
             object-fit: cover;
@@ -16,10 +20,14 @@
         #details {
             display: grid;
             margin: auto;
-            width: 50%;
+            width: 60%;
             justify-content: stretch;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
             grid-column-gap: 20px;
+        }
+        #details-view {
+            margin: auto;
+            width: 80%;
         }
         #results {
             margin: auto;
@@ -45,12 +53,10 @@
         <meta charset="utf-8" />
         <title>Hemolymph</title>
     
-<link rel="modulepreload" href="/hemolymph-frontend-2163bb4ea491be83.js" crossorigin=anonymous >
-<link rel="preload" href="/hemolymph-frontend-2163bb4ea491be83_bg.wasm" crossorigin=anonymous as="fetch" type="application/wasm"></head>
     <body>
-<script type="module" nonce="+hE5fQvepiHeEw7QXkP84w==">
-import init, * as bindings from '/hemolymph-frontend-2163bb4ea491be83.js';
-const wasm = await init('/hemolymph-frontend-2163bb4ea491be83_bg.wasm');
+<script type="module" nonce="V+OdkTDArk+fN2HF5g7MOA==">
+import init, * as bindings from '/hemolymph-frontend-b623a3042a49362c.js';
+const wasm = await init('/hemolymph-frontend-b623a3042a49362c_bg.wasm');
 
 
 window.wasmBindings = bindings;
@@ -59,4 +65,6 @@ window.wasmBindings = bindings;
 dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
 
 </script></body>
-</html>
+
+<link rel="modulepreload" href="/hemolymph-frontend-b623a3042a49362c.js" crossorigin=anonymous>
+<link rel="preload" href="/hemolymph-frontend-b623a3042a49362c_bg.wasm" crossorigin=anonymous as="fetch" type="application/wasm"></html>
