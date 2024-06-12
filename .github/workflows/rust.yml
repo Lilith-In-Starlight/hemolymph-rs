@@ -21,10 +21,10 @@ jobs:
           override: true
 
       - name: Build
-        run: cargo build --all --release && strip target/release/server && mv target/release/server target/release/server_amd64
+        run: cargo build --all --release && strip target/release/hemolymph-rs && mv target/release/hemolymph-rs target/release/hemolymph-rs_amd64
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
           name: linux-build
-          path: target/release/server_amd64
+          path: target/release/hemolymph-rs_amd64
