@@ -6,16 +6,18 @@ use actix_web::{web, App, HttpRequest, HttpResponse, HttpServer, Responder};
 use hemoglobin::cards::Card;
 use hemoglobin::search::query_parser::query_parser;
 use hemoglobin::search::QueryParams;
+use hemolymph_frontend::ServerAppProps;
 use notify::RecursiveMode;
 use notify_debouncer_mini::new_debouncer;
 use serde::{Deserialize, Serialize};
-use tokio::task::{spawn_blocking, LocalSet};
+use std::collections::HashMap;
 use std::path::Path;
 use std::sync::Arc;
 use std::time::Duration;
 use std::{env, fs, io};
 use tokio::runtime::Runtime;
 use tokio::sync::RwLock;
+use tokio::task::{spawn_blocking, LocalSet};
 use yew::ServerRenderer;
 
 struct AppState {
@@ -35,28 +37,37 @@ struct IdViewParam {
 }
 
 async fn serve_index(req: HttpRequest) -> io::Result<HttpResponse> {
-    let path = req.path().trim();
+    let path = req.path().trim().to_string();
     if path.ends_with(".js") {
-        let content = fs::read(format!("dist/{}", path))?;
+        let content = fs::read_to_string(format!("dist/{}", path))?;
         Ok(HttpResponse::Ok()
             .content_type("application/javascript; charset=utf-8")
             .body(content))
     } else if path.ends_with(".wasm") {
-        let content = fs::read_to_string(format!("dist/{}", path))?;
+        let content = fs::read(format!("dist/{}", path))?;
         Ok(HttpResponse::Ok()
             .content_type("application/wasm")
             .body(content))
     } else {
-        let content = fs::read_to_string("dist/base.html")?;
+        let content = fs::read_to_string("dist/index.html")?;
+        let path = path.clone();
         let content = spawn_blocking(move || {
             use tokio::runtime::Builder;
             let set = LocalSet::new();
             let rt = Builder::new_current_thread().enable_all().build().unwrap();
             set.block_on(&rt, async {
-                let renderer = ServerRenderer::<hemolymph_frontend::App>::new();
+                let renderer =
+                    ServerRenderer::<hemolymph_frontend::ServerApp>::with_props(move || {
+                        ServerAppProps {
+                            url: path.into(),
+                            queries: HashMap::new(),
+                        }
+                    });
                 content.replace("{content}", &renderer.render().await)
             })
-        }).await.unwrap();
+        })
+        .await
+        .unwrap();
         Ok(HttpResponse::Ok().content_type("text/html").body(content))
     }
 }
