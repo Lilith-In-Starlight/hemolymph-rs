@@ -74,7 +74,7 @@ async fn main() -> std::io::Result<()> {
 
     let cards_pointer = Arc::clone(&app_state.cards);
 
-    if environment.as_str() == "production" {
+    if env::var("WATCH").is_ok_and(|x| &x == "YEP") {
         tokio::spawn(async move {
             let (tx, rx) = std::sync::mpsc::channel();
             let mut debouncer = new_debouncer(Duration::from_secs(1), tx).unwrap();
