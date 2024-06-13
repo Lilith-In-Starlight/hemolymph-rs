@@ -1,7 +1,6 @@
 #![warn(clippy::pedantic)]
 
 use actix_cors::Cors;
-use actix_files::{Files, NamedFile};
 use actix_web::{web, App, HttpRequest, HttpResponse, HttpServer, Responder};
 use hemoglobin::cards::Card;
 use hemoglobin::search::query_parser::query_parser;
@@ -15,7 +14,6 @@ use std::path::Path;
 use std::sync::Arc;
 use std::time::Duration;
 use std::{env, fs, io};
-use tokio::runtime::Runtime;
 use tokio::sync::RwLock;
 use tokio::task::{spawn_blocking, LocalSet};
 use yew::ServerRenderer;
@@ -37,20 +35,21 @@ struct IdViewParam {
 }
 
 async fn serve_index(req: HttpRequest) -> io::Result<HttpResponse> {
-    let path = req.path().trim().to_string();
-    if path.ends_with(".js") {
-        let content = fs::read_to_string(format!("dist/{}", path))?;
+    let path = req.path().to_string();
+    let path = Path::new(&path);
+    if path.extension().map_or(false, |x| x == ".js") {
+        let content = fs::read_to_string(format!("dist/{}", path.to_string_lossy()))?;
         Ok(HttpResponse::Ok()
             .content_type("application/javascript; charset=utf-8")
             .body(content))
     } else if path.ends_with(".wasm") {
-        let content = fs::read(format!("dist/{}", path))?;
+        let content = fs::read(format!("dist/{}", path.to_string_lossy()))?;
         Ok(HttpResponse::Ok()
             .content_type("application/wasm")
             .body(content))
     } else {
         let content = fs::read_to_string("dist/index.html")?;
-        let path = path.clone();
+        let path = path.to_path_buf();
         let content = spawn_blocking(move || {
             use tokio::runtime::Builder;
             let set = LocalSet::new();
@@ -59,7 +58,7 @@ async fn serve_index(req: HttpRequest) -> io::Result<HttpResponse> {
                 let renderer =
                     ServerRenderer::<hemolymph_frontend::ServerApp>::with_props(move || {
                         ServerAppProps {
-                            url: path.into(),
+                            url: path.to_string_lossy().to_string().into(),
                             queries: HashMap::new(),
                         }
                     });
