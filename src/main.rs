@@ -37,12 +37,12 @@ struct IdViewParam {
 async fn serve_index(req: HttpRequest) -> io::Result<HttpResponse> {
     let path = req.path().to_string();
     let path = Path::new(&path);
-    if path.extension().map_or(false, |x| x == ".js") {
+    if path.extension().map_or(false, |x| x == "js") {
         let content = fs::read_to_string(format!("dist/{}", path.to_string_lossy()))?;
         Ok(HttpResponse::Ok()
             .content_type("application/javascript; charset=utf-8")
             .body(content))
-    } else if path.ends_with(".wasm") {
+    } else if path.extension().map_or(false, |x| x == "wasm") {
         let content = fs::read(format!("dist/{}", path.to_string_lossy()))?;
         Ok(HttpResponse::Ok()
             .content_type("application/wasm")
