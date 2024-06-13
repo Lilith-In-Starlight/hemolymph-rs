@@ -9,8 +9,10 @@ actix-web = "4.7.0"
 serde = { version = "1.0.203", features = ["derive"] }
 tokio = { version = "1.38.0", features = ["rt-multi-thread"] }
 hemoglobin = { git = "https://github.com/Lilith-In-Starlight/hemoglobin"}
+hemolymph-frontend = { path = "../hemolymph-frontend" }
 serde_json = "1.0.117"
 actix-files = "0.6.6"
 dotenv = "0.15.0"
 notify = "6.1.1"
 notify-debouncer-mini = "0.4.1"
+yew = { version = "0.21.0", features = ["ssr"] }
