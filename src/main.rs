@@ -19,7 +19,7 @@ use tokio::task::{spawn_blocking, LocalSet};
 use yew::ServerRenderer;
 
 struct AppState {
-    cards: Arc<RwLock<Vec<Card>>>,
+    cards: Arc<RwLock<HashMap<String, Card>>>,
 }
 
 #[derive(Serialize)]
@@ -75,6 +75,7 @@ async fn serve_index(req: HttpRequest) -> io::Result<HttpResponse> {
 async fn main() -> std::io::Result<()> {
     let data = fs::read_to_string("cards.json").expect("Unable to read file");
     let cards: Vec<Card> = serde_json::from_str(&data).expect("Unable to parse JSON");
+    let cards = create_card_map(cards);
 
     let app_state = web::Data::new(AppState {
         cards: Arc::new(RwLock::new(cards)),
@@ -109,7 +110,7 @@ async fn main() -> std::io::Result<()> {
                         match serde_json::from_str::<Vec<Card>>(&data) {
                             Ok(data) => {
                                 let mut cards = cards_pointer.write().await;
-                                *cards = data;
+                                *cards = create_card_map(data);
                             }
                             Err(x) => eprintln!("{x:#?}"),
                         }
@@ -133,8 +134,13 @@ async fn main() -> std::io::Result<()> {
     .await
 }
 
+fn create_card_map(vec: Vec<Card>) -> HashMap<String, Card> {
+    vec.into_iter().map(|x| (x.id.clone(), x)).collect()
+}
+
 async fn search(data: web::Data<AppState>, query: web::Query<QueryParams>) -> impl Responder {
-    let results = data.cards.read().await;
+    let cards = data.cards.read().await;
+    let cards = cards.values();
 
     let Ok(query_restrictions) = query_parser(&query.query.clone().unwrap_or_default()) else {
         let results = QueryResult::Error {
@@ -143,7 +149,7 @@ async fn search(data: web::Data<AppState>, query: web::Query<QueryParams>) -> im
         return HttpResponse::Ok().json(results);
     };
 
-    let results = hemoglobin::apply_restrictions(query_restrictions.as_slice(), &results);
+    let results = hemoglobin::apply_restrictions(query_restrictions.as_slice(), cards);
 
     let results = QueryResult::CardList { content: results };
 
@@ -153,7 +159,10 @@ async fn search(data: web::Data<AppState>, query: web::Query<QueryParams>) -> im
 async fn view_card(data: web::Data<AppState>, query: web::Query<IdViewParam>) -> impl Responder {
     let results = data.cards.read().await;
 
-    let results: Vec<&Card> = results.iter().filter(|card| card.id == query.id).collect();
+    let results: Option<&Card> = results.get(&query.id);
 
-    HttpResponse::Ok().json(results.first().unwrap())
+    match results {
+        Some(results) => HttpResponse::Ok().json(results),
+        None => HttpResponse::Ok().body("oops"),
+    }
 }
