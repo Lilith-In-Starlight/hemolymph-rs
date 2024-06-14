@@ -10,7 +10,7 @@ use notify::RecursiveMode;
 use notify_debouncer_mini::new_debouncer;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
-use std::path::Path;
+use std::path::{Path, PathBuf};
 use std::sync::Arc;
 use std::time::Duration;
 use std::{env, fs, io};
@@ -34,9 +34,16 @@ struct IdViewParam {
     id: String,
 }
 
-async fn serve_index(req: HttpRequest) -> io::Result<HttpResponse> {
+async fn serve_index(data: web::Data<AppState>, req: HttpRequest) -> io::Result<HttpResponse> {
+    let cards = data.cards.read().await;
     let path = req.path().to_string();
-    let path = Path::new(&path);
+    let path = PathBuf::from(path);
+    let card_details = path
+        .iter()
+        .nth(2)
+        .map(|x| x.to_str().unwrap())
+        .and_then(|x| cards.get(x).cloned());
+
     if path.extension().map_or(false, |x| x == "js") {
         let content = fs::read_to_string(format!("dist/{}", path.to_string_lossy()))?;
         Ok(HttpResponse::Ok()
@@ -55,6 +62,13 @@ async fn serve_index(req: HttpRequest) -> io::Result<HttpResponse> {
             let set = LocalSet::new();
             let rt = Builder::new_current_thread().enable_all().build().unwrap();
             set.block_on(&rt, async {
+                let (description, name) = match card_details {
+                    Some(card) => (card.description.clone(), get_filegarden_link(&card.name)),
+                    None => (
+                        "A search engine for Bloodless cards.".to_string(),
+                        "".to_string(),
+                    ),
+                };
                 let renderer =
                     ServerRenderer::<hemolymph_frontend::ServerApp>::with_props(move || {
                         ServerAppProps {
@@ -62,7 +76,10 @@ async fn serve_index(req: HttpRequest) -> io::Result<HttpResponse> {
                             queries: HashMap::new(),
                         }
                     });
-                content.replace("{content}", &renderer.render().await)
+                content
+                    .replace("{content}", &renderer.render().await)
+                    .replace("{description}", &description)
+                    .replace("{ogimage}", &name)
             })
         })
         .await
@@ -165,4 +182,11 @@ async fn view_card(data: web::Data<AppState>, query: web::Query<IdViewParam>) ->
         Some(results) => HttpResponse::Ok().json(results),
         None => HttpResponse::Ok().body("oops"),
     }
+}
+
+fn get_filegarden_link(name: &str) -> String {
+    format!(
+        "https://file.garden/ZJSEzoaUL3bz8vYK/bloodlesscards/{}.png",
+        name.replace(' ', "").replace("ä", "a")
+    )
 }
