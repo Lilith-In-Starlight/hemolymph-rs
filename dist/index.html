@@ -1,67 +1,118 @@
 <!doctype html>
 <html>
-    <style>
+	<style>
 		@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+		@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
 		body {
 			font-family: "Noto Sans", sans-serif;
 		}
-        #logo {
-            width: 152px;
-            object-fit: cover;
-        }
-        #search {
-            width: 80%;
-            margin: auto;
-            padding-bottom: 20px;
-            display: grid;
-            grid-template-columns: 152px auto;
-            grid-column-gap: 20px;
-        }
-        #details {
-            display: grid;
-            margin: auto;
-            width: 60%;
-            justify-content: stretch;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            grid-column-gap: 20px;
-        }
-        #details-view {
-            margin: auto;
-            width: 80%;
-        }
-        #results {
-            margin: auto;
-            width: 70%;
-            grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
-            column-gap: 10px;
-            row-gap: 10px;
-            display: grid;
+		#logo {
+			width: 152px;
+			object-fit: cover;
+		}
+		#search {
+			width: 80%;
+			margin: auto;
+			padding-bottom: 20px;
+			display: grid;
+			grid-template-columns: 152px auto;
+			grid-column-gap: 20px;
+			justify-content: stretch;
+			justify-items: stretch;
+		}
+		#details {
+			display: grid;
+			margin: auto;
+			width: 100%;
 			justify-items: center;
-        }
-        #text-description {
-            grid-column-start: 2;
-        }
-        #details-preview {
-            width: max(400px, 100%);
-        }
-        .card-result {
-            width: 200px;
-            border: black solid 3px;
-            border-radius: 10px;
-        }
-    </style>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <meta name="description" content="{description}"/>
-        <meta name="og:image" content="{ogimage}"/>
+			justify-content: center;
+			grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
+			grid-column-gap: 20px;
+		}
+		#details-view {
+			margin: auto;
+			width: 90%;
+		}
+		#results {
+			margin: auto;
+			width: 70%;
+			grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+			column-gap: 10px;
+			row-gap: 10px;
+			display: grid;
+			justify-items: center;
+		}
+		#details-preview {
+			width: min(400px, 100%);
+		}
+		#text-description {
+			width: 100%;
+		}
+		.card-result {
+			width: 200px;
+			border: black solid 3px;
+			border-radius: 10px;
+		}
+		.code {
+			background-color: lightgray;
+			padding: 2px;
+			border-radius: 5px;
+			border: black solid 1.5px;
+			border-color: gray;
+			font-family: "Roboto Mono", monospace;
+		}
+		
+		h1, h2, h3 {
+			margin-top: 0px;
+		}
+		
+		#instructions {
+			width: 80%;
+			margin: auto;
+				
+		}
+
+		#instructions-grid {
+			width: 98%;
+			margin: auto;
+			display: grid;
+			column-gap: 10px;
+			row-gap: 10px;
+			grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
+			grid-template-rows: repeat(auto-fill, 300px));
+			justify-items: center;
+			justify-content: center;
+		}
+
+		.instruction {
+			background-color: blanchedalmond;
+			padding: 20px;
+			border-radius: 20px;
+		}
+
+		.code {
+			background-color: lightgray;
+			padding: 2px;
+			border-radius: 5px;
+			border: black solid 1.5px;
+			border-color: gray;
+			font-family: "Roboto Mono", monospace;
+		}
+	</style>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<meta name="description" content="{description}"/>
+		<meta name="og:image" content="{ogimage}"/>
 		<meta name="twitter:card" content="summary_large_image">
-        <title>Hemolymph</title>
-    
-    <body>{content}
-<script type="module" nonce="0bWp8MVqOw5w4/OKPn2Qvg==">
-import init, * as bindings from '/hemolymph-frontend-9a19e96f767fcbe6.js';
-const wasm = await init('/hemolymph-frontend-9a19e96f767fcbe6_bg.wasm');
+		<title>Hemolymph</title>
+	
+<link rel="modulepreload" href="/hemolymph-frontend-c20fdca065c15b55.js" crossorigin=anonymous>
+<link rel="preload" href="/hemolymph-frontend-c20fdca065c15b55_bg.wasm" crossorigin=anonymous as="fetch" type="application/wasm"></head>
+	<body>{content}
+<script type="module" nonce="SjfaAXvda7idrvUZq8+X1Q==">
+import init, * as bindings from '/hemolymph-frontend-c20fdca065c15b55.js';
+const wasm = await init('/hemolymph-frontend-c20fdca065c15b55_bg.wasm');
 
 
 window.wasmBindings = bindings;
@@ -70,6 +121,4 @@ window.wasmBindings = bindings;
 dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
 
 </script></body>
-
-<link rel="modulepreload" href="/hemolymph-frontend-9a19e96f767fcbe6.js" crossorigin=anonymous>
-<link rel="preload" href="/hemolymph-frontend-9a19e96f767fcbe6_bg.wasm" crossorigin=anonymous as="fetch" type="application/wasm"></html>
+</html>
