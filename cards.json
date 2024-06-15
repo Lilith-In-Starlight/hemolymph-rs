@@ -462,7 +462,7 @@
         "kins": [],
         "abilities": ["Draw 2 cards"],
         "artists": ["Katie Ampersand"],
-        "set": "The Forest",
+        "set": "The Kingdoms",
         "legality": {
             "tournaments": "y",
             "bloodful": "y",
@@ -728,7 +728,7 @@
         "kins": [],
         "abilities": ["Your opponent skips one turn.", "End your turn and skip the attack phase."],
         "artists": ["Katie Ampersand"],
-        "set": "The Forest",
+        "set": "The Kingdoms",
         "legality": {
             "tournaments": "y",
             "bloodful": "y",
@@ -859,7 +859,7 @@
         "kins": [],
         "abilities": ["Draw 2 cards from your opponent's creature deck."],
         "artists": ["Katie Ampersand"],
-        "set": "The Forest",
+        "set": "The Kingdoms",
         "legality": {
             "tournaments": "y",
             "bloodful": "y",
@@ -1123,7 +1123,7 @@
     {
         "id": "blue_pawn",
         "name": "Blue Pawn",
-        "description": "Blue Kingdom Kin\n\nWhen other friendly Blue Kingdom creatures are on the board, this card attacks twice during its attack.",
+        "description": "Blue Kingdom Kin\n\nWhen other friendly Blue Kingdom creatures are on the board, this card performs its attacks twice.",
         "type": "creature",
         "cost": 2,
         "health": 1,
@@ -1175,6 +1175,27 @@
         "abilities": ["When this card attacks, choose which opponent space to attack."],
         "artists": ["Katie Ampersand"],
         "set": "The Kingdoms",
+        "legality": {
+            "tournaments": "y",
+            "bloodful": "y",
+            "bloodless": "y"
+        },
+        "other": [],
+        "functions": []
+    },
+    {
+        "id": "nostalgia",
+        "name": "Nostalgia",
+        "description": "Re-summon a creature.\n\nReturn it to the state it was in before being re-summoned.",
+        "type": "command",
+        "cost": 2,
+        "health": 0,
+        "defense": 0,
+        "power": 0,
+        "kins": [],
+        "abilities": ["Re-summon a creature. Return it to the state it was in before being re-summoned."],
+        "artists": ["Katie Ampersand"],
+        "set": "Ampersandia",
         "legality": {
             "tournaments": "y",
             "bloodful": "y",
