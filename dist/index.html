@@ -6,7 +6,7 @@
 			font-family: "Noto Sans", sans-serif;
 		}
         #logo {
-            width: 100%;
+            width: 152px;
             object-fit: cover;
         }
         #search {
@@ -14,7 +14,7 @@
             margin: auto;
             padding-bottom: 20px;
             display: grid;
-            grid-template-columns: 10% auto;
+            grid-template-columns: 152px auto;
             grid-column-gap: 20px;
         }
         #details {
@@ -36,12 +36,13 @@
             column-gap: 10px;
             row-gap: 10px;
             display: grid;
+			justify-items: center;
         }
         #text-description {
             grid-column-start: 2;
         }
         #details-preview {
-            width: 400px;
+            width: max(400px, 100%);
         }
         .card-result {
             width: 200px;

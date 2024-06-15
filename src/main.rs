@@ -56,7 +56,7 @@ async fn serve_index(data: web::Data<AppState>, req: HttpRequest) -> io::Result<
             .body(content))
     } else {
         let content = fs::read_to_string("dist/index.html")?;
-        let path = path.to_path_buf();
+        let path = path.clone();
         let content = spawn_blocking(move || {
             use tokio::runtime::Builder;
             let set = LocalSet::new();
@@ -66,7 +66,7 @@ async fn serve_index(data: web::Data<AppState>, req: HttpRequest) -> io::Result<
                     Some(card) => (card.description.clone(), get_filegarden_link(&card.name)),
                     None => (
                         "A search engine for Bloodless cards.".to_string(),
-                        "".to_string(),
+                        String::new(),
                     ),
                 };
                 let renderer =
@@ -166,7 +166,7 @@ async fn search(data: web::Data<AppState>, query: web::Query<QueryParams>) -> im
         return HttpResponse::Ok().json(results);
     };
 
-    let results = hemoglobin::apply_restrictions(query_restrictions.as_slice(), cards);
+    let results = hemoglobin::apply_restrictions(&query_restrictions, cards);
 
     let results = QueryResult::CardList { content: results };
 
