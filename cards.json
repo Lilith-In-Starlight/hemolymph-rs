@@ -1139,7 +1139,7 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": []
+        "functions": ["attack twice"]
     },
     {
         "id": "blue_rook",
@@ -1160,7 +1160,7 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": []
+        "functions": ["move"]
     },
     {
         "id": "royal_engineer",
@@ -1181,7 +1181,7 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": []
+        "functions": ["deal damage"]
     },
     {
         "id": "nostalgia",
@@ -1202,6 +1202,27 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": []
+        "functions": ["re-summon creature"]
+    },
+    {
+        "id": "blood_druid",
+        "name": "Blood Druid",
+        "description": "When this creature is played, name a kin.\n\n Whenever a creature of that kin dies, gain 1 blood.",
+        "type": "creature",
+        "cost": 5,
+        "health": 4,
+        "defense": 0,
+        "power": 1,
+        "kins": [],
+        "abilities": ["Re-summon a creature. Return it to the state it was in before being re-summoned."],
+        "artists": ["Katie Ampersand"],
+        "set": "Ampersandia",
+        "legality": {
+            "tournaments": "y",
+            "bloodful": "y",
+            "bloodless": "y"
+        },
+        "other": [],
+        "functions": ["gain blood"]
     }
 ]
