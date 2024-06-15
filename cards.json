@@ -1098,5 +1098,89 @@
         },
         "other": [],
         "functions": []
+    },
+    {
+        "id": "royal_scientist",
+        "name": "Royal Scientist",
+        "description": "Blue Kingdom Kin\n\nWhen you play this card, your opponent can only play one card next turn. They may sacrifice X creatures to play X additional cards.",
+        "type": "creature",
+        "cost": 5,
+        "health": 2,
+        "defense": 2,
+        "power": 2,
+        "kins": ["blue kingdom"],
+        "abilities": ["When you play this card, your opponent can only play one card next turn. They may sacrifice X creatures to play X additional cards."],
+        "artists": ["Katie Ampersand"],
+        "set": "The Kingdoms",
+        "legality": {
+            "tournaments": "y",
+            "bloodful": "y",
+            "bloodless": "y"
+        },
+        "other": [],
+        "functions": []
+    },
+    {
+        "id": "blue_pawn",
+        "name": "Blue Pawn",
+        "description": "Blue Kingdom Kin\n\nWhen other friendly Blue Kingdom creatures are on the board, this card attacks twice during its attack.",
+        "type": "creature",
+        "cost": 2,
+        "health": 1,
+        "defense": 1,
+        "power": 1,
+        "kins": ["blue kingdom"],
+        "abilities": ["When other friendly Blue Kingdom creatures are on the board, this card attacks twice during its attack."],
+        "artists": ["Katie Ampersand"],
+        "set": "The Kingdoms",
+        "legality": {
+            "tournaments": "y",
+            "bloodful": "y",
+            "bloodless": "y"
+        },
+        "other": [],
+        "functions": []
+    },
+    {
+        "id": "blue_rook",
+        "name": "Blue Rook",
+        "description": "Blue Kingdom Kin\n\nDuring your setup phase, you may move this card to any space to its left or right, if the path to it is unblocked.",
+        "type": "creature",
+        "cost": 3,
+        "health": 2,
+        "defense": 2,
+        "power": 2,
+        "kins": ["blue kingdom"],
+        "abilities": ["During your setup phase, you may move this card to any space to its left or right, if the path to it is unblocked."],
+        "artists": ["Katie Ampersand"],
+        "set": "The Kingdoms",
+        "legality": {
+            "tournaments": "y",
+            "bloodful": "y",
+            "bloodless": "y"
+        },
+        "other": [],
+        "functions": []
+    },
+    {
+        "id": "royal_engineer",
+        "name": "Royal Engineer",
+        "description": "Blue Kingdom Kin\nKin Call x3\n\nWhen this card attacks, choose which opponent space to attack.",
+        "type": "creature",
+        "cost": 9,
+        "health": 2,
+        "defense": 1,
+        "power": 3,
+        "kins": ["blue kingdom"],
+        "abilities": ["When this card attacks, choose which opponent space to attack."],
+        "artists": ["Katie Ampersand"],
+        "set": "The Kingdoms",
+        "legality": {
+            "tournaments": "y",
+            "bloodful": "y",
+            "bloodless": "y"
+        },
+        "other": [],
+        "functions": []
     }
 ]
