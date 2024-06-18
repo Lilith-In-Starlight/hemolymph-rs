@@ -11,11 +11,13 @@ use notify_debouncer_mini::new_debouncer;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
+use std::sync::mpsc::TryRecvError;
 use std::sync::Arc;
 use std::time::Duration;
 use std::{env, fs, io};
 use tokio::sync::RwLock;
 use tokio::task::{spawn_blocking, LocalSet};
+use tokio::time::sleep;
 use yew::ServerRenderer;
 
 struct AppState {
@@ -110,33 +112,44 @@ async fn main() -> std::io::Result<()> {
     let port = env::var("PORT").unwrap_or_else(|_| "8080".to_string());
 
     let cards_pointer = Arc::clone(&app_state.cards);
+    let (stx, srx) = std::sync::mpsc::channel();
 
-    if env::var("WATCH").is_ok_and(|x| &x == "YEP") {
-        tokio::spawn(async move {
-            let (tx, rx) = std::sync::mpsc::channel();
-            let mut debouncer = new_debouncer(Duration::from_secs(1), tx).unwrap();
-            debouncer
-                .watcher()
-                .watch(Path::new("cards.json"), RecursiveMode::Recursive)
-                .unwrap();
-
-            loop {
-                match rx.recv() {
-                    Ok(_) => {
-                        let data = fs::read_to_string("cards.json").expect("Unable to read file");
-                        match serde_json::from_str::<Vec<Card>>(&data) {
-                            Ok(data) => {
-                                let mut cards = cards_pointer.write().await;
-                                *cards = create_card_map(data);
-                            }
-                            Err(x) => eprintln!("{x:#?}"),
+    tokio::spawn(async move {
+        let (tx, rx) = std::sync::mpsc::channel();
+        let mut debouncer = new_debouncer(Duration::from_secs(1), tx).unwrap();
+        debouncer
+            .watcher()
+            .watch(Path::new("cards.json"), RecursiveMode::Recursive)
+            .unwrap();
+        loop {
+            match rx.try_recv() {
+                Ok(_) => {
+                    let data = fs::read_to_string("cards.json").expect("Unable to read file");
+                    match serde_json::from_str::<Vec<Card>>(&data) {
+                        Ok(data) => {
+                            let mut cards = cards_pointer.write().await;
+                            *cards = create_card_map(data);
                         }
+                        Err(x) => eprintln!("{x:#?}"),
                     }
-                    Err(_) => println!("boowomp"),
                 }
+                Err(x) if !matches!(x, TryRecvError::Empty) => eprintln!("{x:#?}"),
+                _ => (),
             }
-        });
-    }
+            match srx.try_recv() {
+                Ok(()) => break,
+                Err(x) if !matches!(x, TryRecvError::Empty) => eprintln!("{x:#?}"),
+                _ => (),
+            }
+            sleep(Duration::from_secs(0)).await;
+        }
+    });
+
+    tokio::spawn(async move {
+        tokio::signal::ctrl_c().await.unwrap();
+        stx.send(()).unwrap();
+    });
+
     HttpServer::new(move || {
         let cors = Cors::default().allow_any_origin();
         App::new()
