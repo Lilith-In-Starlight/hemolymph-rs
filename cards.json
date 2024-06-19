@@ -1,6 +1,6 @@
 [
     {
-        "id": "0",
+        "id": "vampire_mantis",
         "name": "Vampire Mantis",
         "description": "Devours: Insect Kin with Bifurcated Strike\n\nUndead Kin\nBifurcated Strike\n\nWhen Killed: Gain one additional blood",
         "cost": 3,
@@ -38,7 +38,7 @@
         "functions": []
     },
     {
-        "id": "1",
+        "id": "mosquito",
         "name": "Mosquito",
         "description": "Insect Kin\n\nWhen this creature attacks and is blocked, gain one blood.",
         "type": "creature",
@@ -59,7 +59,7 @@
         "functions": ["gain blood"]
     },
     {
-        "id": "2",
+        "id": "blue_queen",
         "name": "Blue Queen",
         "description": "Pay 1 blood for each creature that you wish to sacrifice. Sacrifice those creatures.",
         "type": "command",
@@ -80,7 +80,7 @@
         "functions": ["sacrifice creatures"]
     },
     {
-        "id": "3",
+        "id": "ant_queen",
         "name": "Ant Queen",
         "description": "Ant Kin\nKin Call",
         "type": "creature",
@@ -102,7 +102,7 @@
         "functions": ["call creatures"]
     },
     {
-        "id": "4",
+        "id": "blood_flask",
         "name": "Blood Flask",
         "description": "Spell\nWhen Played: Gain one blood",
         "type": "creature",
@@ -124,7 +124,7 @@
         "functions": ["gain blood"]
     },
     {
-        "id": "5",
+        "id": "timestopper",
         "name": "Timestopper",
         "description": "All friendly creatures attack without ending your turn.",
         "type": "command",
@@ -145,7 +145,7 @@
         "functions": ["attack creature"]
     },
     {
-        "id": "6",
+        "id": "blight",
         "name": "Blight",
         "description": "Blight Kin\nKin Call\nUnlimited",
         "img": ["Blight", "Blight2"],
@@ -168,7 +168,7 @@
         "functions": ["fill board"]
     },
     {
-        "id": "7",
+        "id": "blightkin_child",
         "name": "Blightkin Child",
         "description": "When Played: Enemy \"Blight\" creatures facing empty spaces change sides",
         "type": "creature",
@@ -189,7 +189,7 @@
         "functions": ["convert creature"]
     },
     {
-        "id": "8",
+        "id": "broken_robot",
         "name": "Broken Robot",
         "description": "",
         "type": "creature",
@@ -210,7 +210,7 @@
         "functions": ["obstruct lane"]
     },
     {
-        "id": "9",
+        "id": "bug_singer",
         "name": "Bug Singer",
         "description": "Insect Kin\n\nWhen Played: Friendly Insect creatures move one space closer to this creature",
         "type": "creature",
@@ -231,7 +231,7 @@
         "functions": ["move creature"]
     },
     {
-        "id": "10",
+        "id": "child",
         "name": "Child",
         "description": "Whenever a friendly creature enters, this creature moves as close to it as possible.",
         "type": "creature",
@@ -252,7 +252,7 @@
         "functions": ["move creature"]
     },
     {
-        "id": "11",
+        "id": "crow",
         "name": "Crow",
         "description": "Flying",
         "keywords": [{"name": "flying"}],
@@ -274,7 +274,7 @@
         "functions": []
     },
     {
-        "id": "12",
+        "id": "cult_initiate",
         "name": "Cult Initiate",
         "description": "Does not give blood when killed",
         "type": "creature",
@@ -295,7 +295,7 @@
         "functions": []
     },
     {
-        "id": "13",
+        "id": "deranged_researcher",
         "name": "Deranged Researcher",
         "description": "When Played: Shuffle a \"Grand Design\" vestige into your deck",
         "type": "creature",
@@ -316,16 +316,16 @@
         "functions": ["spawn vestige", "shuffle deck", "add card"]
     },
     {
-        "id": "14",
+        "id": "dog",
         "name": "Dog",
-        "description": "",
+        "description": "Whenever your opponent summons a creature in an unopposed space, move this creature to the space opposite to it.",
         "type": "creature",
         "cost": 1,
-        "health": 1,
+        "health": 2,
         "defense": 1,
         "power": 1,
         "kins": [],
-        "abilities": [],
+        "abilities": ["Whenever your opponent summons a creature in an unopposed space, move this creature to the space opposite to it."],
         "artists": ["Katie Ampersand"],
         "set": "The Forest",
         "legality": {
@@ -337,7 +337,7 @@
         "functions": []
     },
     {
-        "id": "15",
+        "id": "dog_treats",
         "name": "Dog Treats",
         "description": "Search your deck for a creature card of blood cost 1.\n\nPut it into play.\n\nShuffle.",
         "type": "command",
@@ -358,7 +358,7 @@
         "functions": ["search deck", "summon creature", "shuffle deck"]
     },
     {
-        "id": "16",
+        "id": "exiled_featherman",
         "name": "Exiled Featherman",
         "description": "At the beginning of your turn, pick one friendly card to become Flying until the end of your turn.",
         "type": "creature",
@@ -409,7 +409,7 @@
         "functions": ["increase attack"]
     },
     {
-        "id": "18",
+        "id": "giraffe",
         "name": "Giraffe",
         "description": "Whenever a friendly creature enters the board, draw a card.",
         "type": "creature",
@@ -430,7 +430,7 @@
         "functions": ["draw card"]
     },
     {
-        "id": "19",
+        "id": "grand_design",
         "name": "Grand Design",
         "description": "Discard your hand. Search your deck for 3 command cards. Reveal them and put them in your hand.",
         "type": "command vestige",
@@ -451,7 +451,7 @@
         "functions": ["discard hand", "search deck", "draw card", "shuffle"]
     },
     {
-        "id": "20",
+        "id": "green_queen",
         "name": "Green Queen",
         "description": "Draw 2 cards.",
         "type": "command",
@@ -472,7 +472,7 @@
         "functions": ["draw card"]
     },
     {
-        "id": "21",
+        "id": "infected_fly",
         "name": "Infected Fly",
         "description": "Devours: 1 Cost Insect Kin\n\nBifurcated Strike\nInsect Kin\n\nWhen this creature attacks and is blocked, gain one blood.",
         "keywords": [
@@ -506,7 +506,7 @@
         "functions": ["gain blood"]
     },
     {
-        "id": "22",
+        "id": "kitchen_dagger",
         "name": "Kitchen Dagger",
         "description": "Discard a card to gain 3 blood.",
         "type": "command",
@@ -563,7 +563,7 @@
         "functions": []
     },
     {
-        "id": "23",
+        "id": "leech",
         "name": "Leech",
         "description": "When killing a creature, gain the amount of blood the opponent would gain. They do not gain it.\n\nWhen killed, your opponent gains 1 blood, you do not.",
         "type": "creature",
@@ -584,7 +584,7 @@
         "functions": ["negate opponent blood gain", "gain blood"]
     },
     {
-        "id": "24",
+        "id": "lightning_strike",
         "name": "Lightning Strike",
         "description": "Explosive",
         "keywords": [{"name": "explosive"}],
@@ -606,7 +606,7 @@
         "functions": []
     },
     {
-        "id": "25",
+        "id": "lost_man_left",
         "name": "Lost Man",
         "img": ["LML"],
         "description": "Wandering Left",
@@ -629,7 +629,7 @@
         "functions": []
     },
     {
-        "id": "26",
+        "id": "lost_man_right",
         "name": "Lost Man",
         "img": ["LMR"],
         "description": "Wandering Right",
@@ -652,7 +652,7 @@
         "functions": []
     },
     {
-        "id": "27",
+        "id": "the_long_quiet",
         "name": "The Long Quiet",
         "description": "Legendary",
         "keywords": [{"name": "legendary"}],
@@ -674,7 +674,7 @@
         "functions": ["negate legendary"]
     },
     {
-        "id": "28",
+        "id": "mantis",
         "name": "Mantis",
         "description": "Insect Kin\nBifurcated Strike",
         "keywords": [{"name": "bifurcated strike"}],
@@ -696,7 +696,7 @@
         "functions": []
     },
     {
-        "id": "29",
+        "id": "mechanic",
         "name": "Mechanic",
         "description": "When Played:\nPlace a \"Broken Robot\" from your hand in the space opposing this card for free.",
         "type": "creature",
@@ -717,7 +717,7 @@
         "functions": ["clutter opponent space"]
     },
     {
-        "id": "31",
+        "id": "red_queen",
         "name": "Red Queen",
         "description": "Your opponent skips one turn. End your turn and skip the attack phase.",
         "type": "command",
@@ -738,7 +738,7 @@
         "functions": ["skip opponent turn", "end turn", "skip attack phase"]
     },
     {
-        "id": "32",
+        "id": "sign",
         "name": "Sign",
         "description": "Spell\n\nWhen Played: Move any other friendly creature to an empty space to its left or right.",
         "keywords": [{"name": "spell"}],
@@ -760,7 +760,7 @@
         "functions": ["move creature"]
     },
     {
-        "id": "33",
+        "id": "tall_figure",
         "name": "Tall Figure",
         "description": "Flying Defense",
         "keywords": [{"name": "flying defense"}],
@@ -782,7 +782,7 @@
         "functions": []
     },
     {
-        "id": "34",
+        "id": "time_screamer",
         "name": "Time Screamer",
         "description": "Legendary\n\nWhile On Board:\n\nIf an attack would cause player damage, it does not.",
         "keywords": [{"name": "legendary"}],
@@ -804,7 +804,7 @@
         "functions": ["negate player damage", "change rules"]
     },
     {
-        "id": "35",
+        "id": "winged_ant",
         "name": "Winged Ant",
         "description": "Ant Kin\nFlying",
         "keywords": [{"name": "flying"}],
@@ -826,7 +826,7 @@
         "functions": []
     },
     {
-        "id": "36",
+        "id": "worker_ant",
         "name": "Worker Ant",
         "description": "Ant Kin\nKin Strength",
         "keywords": [{"name": "kin strength"}],
@@ -848,7 +848,7 @@
         "functions": []
     },
     {
-        "id": "37",
+        "id": "black_queen",
         "name": "Black Queen",
         "description": "Draw 2 cards from your opponent's creature deck.",
         "type": "command",
@@ -869,16 +869,16 @@
         "functions": ["draw card"]
     },
     {
-        "id": "38",
+        "id": "crypt_mantis",
         "name": "Crypt Mantis",
-        "description": "Insect Kin\n\nThis creature's strength is equal to the amount of unique cards in your discard pile.",
+        "description": "Insect Kin\nBifurcated Strike\n\nThis creature's strength is equal to half the amount of unique cards in your discard pile, rounded up.",
         "type": "creature",
         "cost": 5,
         "health": 2,
         "defense": 2,
         "power": 0,
         "kins": ["insect"],
-        "abilities": ["This creature's strength is equal to the amount of unique cards in your discard pile."],
+        "abilities": ["This creature's strength is equal to half the amount of unique cards in your discard pile, rounded up."],
         "artists": ["Katie Ampersand"],
         "set": "The Forest",
         "legality": {
@@ -890,7 +890,7 @@
         "functions": []
     },
     {
-        "id": "39",
+        "id": "sniper_snake",
         "name": "Sniper Snake",
         "description": "Reptile Kin\n\nPay 1 blood to deal 1 damage to any creature.",
         "type": "creature",
@@ -911,7 +911,7 @@
         "functions": ["attack creature"]
     },
     {
-        "id": "40",
+        "id": "wasp",
         "name": "Wasp",
         "description": "Insect Kin\nFlying Defense\nPiercing",
         "type": "creature",
@@ -932,7 +932,7 @@
         "functions": []
     },
     {
-        "id": "41",
+        "id": "spider",
         "name": "Spider",
         "description": "When this creature attacks an Ensnared creature, attack it once more.",
         "type": "creature",
@@ -953,7 +953,7 @@
         "functions": ["attack creature"]
     },
     {
-        "id": "42",
+        "id": "spider_web",
         "name": "Spider Web",
         "description": "Evolves From: Spider\nWhen Attacked: The attacking creature becomes Ensnared.\n\nWhen Killed: Summons a spider in the space left by this card.",
         "type": "creature",
@@ -974,7 +974,7 @@
         "functions": ["ensnare", "summon creature"]
     },
     {
-        "id": "43",
+        "id": "pulsating_lens",
         "name": "Pulsating Lens",
         "description": "Sorcery Kin\n\nDraw a creature from your deck.",
         "type": "command",
@@ -995,7 +995,7 @@
         "functions": ["draw card"]
     },
     {
-        "id": "44",
+        "id": "spellbook_of_luna",
         "name": "Spellbook Of Luna",
         "description": "Search your deck for up to 2 sorcery commands. Reveal them and put them in your hand. Shuffle.",
         "type": "command",
@@ -1016,7 +1016,7 @@
         "functions": ["search deck", "draw card", "shuffle"]
     },
     {
-        "id": "45",
+        "id": "misdrawn_starchart",
         "name": "Misdrawn Starchart",
         "description": "Deal 2 damage to an unfriendly creature. Then, draw a card.",
         "type": "command",
@@ -1037,7 +1037,7 @@
         "functions": ["attack creature", "draw card"]
     },
     {
-        "id": "46",
+        "id": "horrific_lurker_of_the_depths",
         "name": "Horrific Lurker Of The Depths",
         "description": "Sorcery Kin\n\nWhenever you execute a sorcery command, draw a card.",
         "type": "creature",
@@ -1058,7 +1058,7 @@
         "functions": ["attack creature", "draw card"]
     },
     {
-        "id": "47",
+        "id": "shattered_flask",
         "name": "Shattered Flask",
         "description": "",
         "type": "creature",
@@ -1079,7 +1079,7 @@
         "functions": ["gain blood"]
     },
     {
-        "id": "48",
+        "id": "bee",
         "name": "Bee",
         "description": "Bee Kin\nKin Strength\n\nThis creature is destroyed after it attacks.",
         "type": "creature",
