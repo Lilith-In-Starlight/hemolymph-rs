@@ -112,7 +112,6 @@ async fn main() -> std::io::Result<()> {
     let port = env::var("PORT").unwrap_or_else(|_| "8080".to_string());
 
     let cards_pointer = Arc::clone(&app_state.cards);
-    let (stx, srx) = std::sync::mpsc::channel();
 
     tokio::spawn(async move {
         let (tx, rx) = std::sync::mpsc::channel();
@@ -133,21 +132,11 @@ async fn main() -> std::io::Result<()> {
                         Err(x) => eprintln!("{x:#?}"),
                     }
                 }
-                Err(x) if !matches!(x, TryRecvError::Empty) => eprintln!("{x:#?}"),
-                _ => (),
-            }
-            match srx.try_recv() {
-                Ok(()) => break,
-                Err(x) if !matches!(x, TryRecvError::Empty) => eprintln!("{x:#?}"),
-                _ => (),
+                Err(TryRecvError::Empty) => (),
+                Err(x) => eprintln!("{x:#?}"),
             }
             sleep(Duration::from_secs(0)).await;
         }
-    });
-
-    tokio::spawn(async move {
-        tokio::signal::ctrl_c().await.unwrap();
-        stx.send(()).unwrap();
     });
 
     HttpServer::new(move || {
