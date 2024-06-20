@@ -27,8 +27,13 @@ struct AppState {
 #[derive(Serialize)]
 #[serde(tag = "type")]
 pub enum QueryResult<'a> {
-    CardList { content: Vec<&'a Card> },
-    Error { message: String },
+    CardList {
+        query_text: String,
+        content: Vec<&'a Card>,
+    },
+    Error {
+        message: String,
+    },
 }
 
 #[derive(Deserialize)]
@@ -161,18 +166,24 @@ async fn search(data: web::Data<AppState>, query: web::Query<QueryParams>) -> im
     let cards = data.cards.read().await;
     let cards = cards.values();
 
-    let Ok(query_restrictions) = query_parser(&query.query.clone().unwrap_or_default()) else {
-        let results = QueryResult::Error {
-            message: "Query couldn't be parsed".to_string(),
-        };
-        return HttpResponse::Ok().json(results);
-    };
+    match query_parser(&query.query.clone().unwrap_or_default()) {
+        Ok(query_restrictions) => {
+            let results = hemoglobin::apply_restrictions(&query_restrictions, cards);
 
-    let results = hemoglobin::apply_restrictions(&query_restrictions, cards);
+            let results = QueryResult::CardList {
+                content: results,
+                query_text: format!("{query_restrictions}"),
+            };
 
-    let results = QueryResult::CardList { content: results };
-
-    HttpResponse::Ok().json(results)
+            HttpResponse::Ok().json(results)
+        }
+        Err(error) => {
+            let error = QueryResult::Error {
+                message: format!("Query couldn't be parsed: {error:#?}"),
+            };
+            HttpResponse::Ok().json(error)
+        }
+    }
 }
 
 async fn view_card(data: web::Data<AppState>, query: web::Query<IdViewParam>) -> impl Responder {

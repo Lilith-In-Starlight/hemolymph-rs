@@ -296,6 +296,7 @@
     },
     {
         "id": "deranged_researcher",
+        "img": ["DerangedResearcher", "DerangedResearcher2"],
         "name": "Deranged Researcher",
         "description": "When Played: Shuffle a \"Grand Design\" vestige into your deck",
         "type": "creature",
