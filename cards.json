@@ -307,7 +307,7 @@
         "kins": [],
         "abilities": ["When Played: Shuffle a \"Grand Design\" vestige into your deck"],
         "artists": ["Katie Ampersand"],
-        "set": "The Forest",
+        "set": "Normality",
         "legality": {
             "tournaments": "y",
             "bloodful": "y",
@@ -442,7 +442,7 @@
         "kins": [],
         "abilities": ["Discard your hand", "Search your deck for 3 command cards.", "Reveal them and put them in your hand.", "Shuffle."],
         "artists": ["Katie Ampersand"],
-        "set": "The Forest",
+        "set": "Normality",
         "legality": {
             "tournaments": "y",
             "bloodful": "y",
@@ -1225,5 +1225,26 @@
         },
         "other": [],
         "functions": ["gain blood"]
+    },
+    {
+        "id": "flash_of_insight",
+        "name": "Flash Of Insight",
+        "description": "Draw three cards.",
+        "type": "command",
+        "cost": 4,
+        "health": 0,
+        "defense": 0,
+        "power": 0,
+        "kins": [],
+        "abilities": ["Draw three cards."],
+        "artists": ["Katie Ampersand"],
+        "set": "Normality",
+        "legality": {
+            "tournaments": "y",
+            "bloodful": "y",
+            "bloodless": "y"
+        },
+        "other": [],
+        "functions": ["draw card"]
     }
 ]
