@@ -1246,5 +1246,26 @@
         },
         "other": [],
         "functions": ["draw card"]
+    },
+    {
+        "id": "high_noon",
+        "name": "High Noon",
+        "description": "You and your opponent draw a card and reveal it.\n\nWhoever has the card wih greatest power, plays it.\n\nIf both have equal power, both play the card they drew.",
+        "type": "command",
+        "cost": 3,
+        "health": 0,
+        "defense": 0,
+        "power": 0,
+        "kins": [],
+        "abilities": ["You and your opponent draw a card and reveal it.", "Whoever has the card with greatest power, plays it. If both have equal power, both play the card they drew."],
+        "artists": ["Katie Ampersand"],
+        "set": "Fun And Games",
+        "legality": {
+            "tournaments": "y",
+            "bloodful": "y",
+            "bloodless": "y"
+        },
+        "other": [],
+        "functions": ["draw card", "play card", "gimmick"]
     }
 ]
