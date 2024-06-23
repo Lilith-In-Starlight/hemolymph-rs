@@ -1267,5 +1267,47 @@
         },
         "other": [],
         "functions": ["draw card", "play card", "gimmick"]
+    },
+    {
+        "id": "slippery_frog",
+        "name": "Slippery Frog",
+        "description": "",
+        "type": "creature",
+        "cost": 2,
+        "health": 3,
+        "defense": 1,
+        "power": 2,
+        "kins": [],
+        "abilities": [],
+        "artists": ["Katie Ampersand"],
+        "set": "The Forest",
+        "legality": {
+            "tournaments": "y",
+            "bloodful": "y",
+            "bloodless": "y"
+        },
+        "other": [],
+        "functions": []
+    },
+    {
+        "id": "amulet_of_katta",
+        "name": "Amulet Of Kätta",
+        "description": "Add 2 points to the health pool.",
+        "type": "command",
+        "cost": 1,
+        "health": 0,
+        "defense": 0,
+        "power": 0,
+        "kins": [],
+        "abilities": ["Add 2 points to the health pool."],
+        "artists": ["Katie Ampersand"],
+        "set": "Normality",
+        "legality": {
+            "tournaments": "y",
+            "bloodful": "y",
+            "bloodless": "y"
+        },
+        "other": [],
+        "functions": ["heal pool"]
     }
 ]
