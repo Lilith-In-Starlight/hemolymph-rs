@@ -877,7 +877,7 @@
         "cost": 5,
         "health": 2,
         "defense": 2,
-        "power": 0,
+        "power": "X",
         "kins": ["insect"],
         "abilities": ["This creature's strength is equal to half the amount of unique cards in your discard pile, rounded up."],
         "artists": ["Katie Ampersand"],
