@@ -4,7 +4,6 @@ use actix_cors::Cors;
 use actix_web::{web, App, HttpRequest, HttpResponse, HttpServer, Responder};
 use hemoglobin::cards::Card;
 use hemoglobin::search::query_parser::query_parser;
-use hemoglobin::search::QueryParams;
 use hemolymph_frontend::ServerAppProps;
 use notify::RecursiveMode;
 use notify_debouncer_mini::new_debouncer;
@@ -19,6 +18,11 @@ use tokio::sync::RwLock;
 use tokio::task::{spawn_blocking, LocalSet};
 use tokio::time::sleep;
 use yew::ServerRenderer;
+
+#[derive(Deserialize)]
+struct QueryParams {
+    query: Option<String>,
+}
 
 struct AppState {
     cards: Arc<RwLock<HashMap<String, Card>>>,
@@ -168,7 +172,7 @@ async fn search(data: web::Data<AppState>, query: web::Query<QueryParams>) -> im
 
     match query_parser(&query.query.clone().unwrap_or_default()) {
         Ok(query_restrictions) => {
-            let results = hemoglobin::apply_restrictions(&query_restrictions, cards);
+            let results = hemoglobin::search::search(&query_restrictions, cards);
 
             let results = QueryResult::CardList {
                 content: results,

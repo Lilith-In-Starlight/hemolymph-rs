@@ -89,7 +89,7 @@
         "defense": 2,
         "power": 2,
         "kins": ["ant", "insect"],
-        "keywords": [{"name": "spell"}],
+        "keywords": [{"name": "kin call"}],
         "abilities": [],
         "artists": ["Katie Ampersand"],
         "set": "The Forest",
@@ -104,15 +104,15 @@
     {
         "id": "blood_flask",
         "name": "Blood Flask",
-        "description": "Spell\nWhen Played: Gain one blood",
-        "type": "creature",
+        "description": "",
+        "type": "blood flask",
         "cost": 0,
         "health": 1,
         "defense": 0,
         "power": 0,
         "kins": [],
-        "keywords": [{"name": "spell"}],
-        "abilities": ["When Played: Gain one blood"],
+        "keywords": [],
+        "abilities": [""],
         "artists": ["Katie Ampersand"],
         "set": "None",
         "legality": {
@@ -151,7 +151,7 @@
         "img": ["Blight", "Blight2"],
         "keywords": [{"name": "kin call"}, {"name": "unlimited"}],
         "type": "creature",
-        "cost": 3,
+        "cost": 2,
         "health": 1,
         "defense": 0,
         "power": 1,
@@ -433,14 +433,14 @@
     {
         "id": "grand_design",
         "name": "Grand Design",
-        "description": "Discard your hand. Search your deck for 3 command cards. Reveal them and put them in your hand.",
+        "description": "You win the game.",
         "type": "command vestige",
         "cost": 6,
         "health": 0,
         "defense": 0,
         "power": 0,
         "kins": [],
-        "abilities": ["Discard your hand", "Search your deck for 3 command cards.", "Reveal them and put them in your hand.", "Shuffle."],
+        "abilities": ["You win the game."],
         "artists": ["Katie Ampersand"],
         "set": "Normality",
         "legality": {
@@ -449,7 +449,7 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": ["discard hand", "search deck", "draw card", "shuffle"]
+        "functions": ["win the game"]
     },
     {
         "id": "green_queen",
@@ -509,7 +509,7 @@
     {
         "id": "kitchen_dagger",
         "name": "Kitchen Dagger",
-        "description": "Discard a card to gain 3 blood.",
+        "description": "Discard 3 cards to gain 6 blood.",
         "type": "command",
         "cost": 2,
         "health": 0,
@@ -566,14 +566,14 @@
     {
         "id": "leech",
         "name": "Leech",
-        "description": "When killing a creature, gain the amount of blood the opponent would gain. They do not gain it.\n\nWhen killed, your opponent gains 1 blood, you do not.",
+        "description": "When killing a creature, gain the amount of blood the opponent would gain. They do not gain it.\n\nWhen killed, your opponent gains 1 blood.",
         "type": "creature",
         "cost": 2,
         "health": 2,
         "defense": 1,
         "power": 1,
         "kins": [],
-        "abilities": ["When killing a creature, gain the amount of blood the opponent would gain. They do not gain it.", "When killed, your opponent gains 1 blood, you do not."],
+        "abilities": ["When killing a creature, gain the amount of blood the opponent would gain. They do not gain it.", "When killed, your opponent gains 1 blood."],
         "artists": ["Katie Ampersand"],
         "set": "The Forest",
         "legality": {
@@ -582,7 +582,7 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": ["negate opponent blood gain", "gain blood"]
+        "functions": ["starve opponent", "gain blood"]
     },
     {
         "id": "lightning_strike",
@@ -1043,9 +1043,9 @@
         "description": "Sorcery Kin\n\nWhenever you execute a sorcery command, draw a card.",
         "type": "creature",
         "cost": 5,
-        "health": 3,
-        "defense": 2,
-        "power": 2,
+        "health": 5,
+        "defense": 1,
+        "power": 1,
         "kins": ["sorcery"],
         "abilities": ["Whenever you execute a sorcery command, draw a card."],
         "artists": ["Katie Ampersand"],
@@ -1103,14 +1103,14 @@
     {
         "id": "royal_scientist",
         "name": "Royal Scientist",
-        "description": "Blue Kingdom Kin\n\nWhen you play this card, your opponent can only play one card next turn. They may sacrifice X creatures to play X additional cards.",
+        "description": "Blue Kingdom Kin\n\nAs long as you control another Blue Kingdom creature, your opponent can only play one card each turn. They may sacrifice X creatures to play X additional cards.",
         "type": "creature",
         "cost": 5,
         "health": 2,
         "defense": 2,
         "power": 2,
         "kins": ["blue kingdom"],
-        "abilities": ["When you play this card, your opponent can only play one card next turn. They may sacrifice X creatures to play X additional cards."],
+        "abilities": ["As long as you control another Blue Kingdom creature, your opponent can only play one card each turn. They may sacrifice X creatures to play X additional cards."],
         "artists": ["Katie Ampersand"],
         "set": "The Kingdoms",
         "legality": {
@@ -1124,14 +1124,14 @@
     {
         "id": "blue_pawn",
         "name": "Blue Pawn",
-        "description": "Blue Kingdom Kin\n\nWhen other friendly Blue Kingdom creatures are on the board, this card performs its attacks twice.",
+        "description": "Blue Kingdom Kin\n\nWhen another friendly Blue Kingdom creature enters the board, this creature cannot be attacked next turn.",
         "type": "creature",
         "cost": 2,
         "health": 1,
         "defense": 1,
         "power": 1,
         "kins": ["blue kingdom"],
-        "abilities": ["When other friendly Blue Kingdom creatures are on the board, this card attacks twice during its attack."],
+        "abilities": ["When another friendly Blue Kingdom creature enters the board, this creature cannot be attacked next turn."],
         "artists": ["Katie Ampersand"],
         "set": "The Kingdoms",
         "legality": {
@@ -1148,7 +1148,7 @@
         "description": "Blue Kingdom Kin\n\nDuring your setup phase, you may move this card to any space to its left or right, if the path to it is unblocked.",
         "type": "creature",
         "cost": 3,
-        "health": 2,
+        "health": 3,
         "defense": 2,
         "power": 2,
         "kins": ["blue kingdom"],
@@ -1166,14 +1166,14 @@
     {
         "id": "royal_engineer",
         "name": "Royal Engineer",
-        "description": "Blue Kingdom Kin\nKin Call x3\n\nWhen this card attacks, choose which opponent space to attack.",
+        "description": "Blue Kingdom Kin\nKin Call x3\n\nWhen this card attacks, choose which opponent space to attack. If that space has a creature, it loses its text for the next turn.",
         "type": "creature",
         "cost": 9,
-        "health": 2,
+        "health": 3,
         "defense": 1,
         "power": 3,
         "kins": ["blue kingdom"],
-        "abilities": ["When this card attacks, choose which opponent space to attack."],
+        "abilities": ["When this card attacks, choose which opponent space to attack. If that space has a creature, it loses its text for the next turn."],
         "artists": ["Katie Ampersand"],
         "set": "The Kingdoms",
         "legality": {
@@ -1182,7 +1182,7 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": ["deal damage"]
+        "functions": ["deal damage", "remove opponent creature text"]
     },
     {
         "id": "nostalgia",
@@ -1292,6 +1292,7 @@
     {
         "id": "amulet_of_katta",
         "name": "Amulet Of Kätta",
+        "img": ["AmuletOfKatta"],
         "description": "Add 2 points to the health pool.",
         "type": "command",
         "cost": 1,
@@ -1309,5 +1310,137 @@
         },
         "other": [],
         "functions": ["heal pool"]
+    },
+    {
+        "id": "flask_of_ants",
+        "name": "Flask Of Ants",
+        "description": "Ant Kin\n\nLimit: 2",
+        "type": "blood flask",
+        "cost": 0,
+        "health": 1,
+        "defense": 0,
+        "power": 0,
+        "kins": ["ant", "insect"],
+        "keywords": [{"name": "limit: 3"}],
+        "abilities": [],
+        "artists": ["Katie Ampersand"],
+        "set": "None",
+        "legality": {
+            "tournaments": "y",
+            "bloodful": "y",
+            "bloodless": "y"
+        },
+        "other": [],
+        "functions": ["gain blood"]
+    },
+    {
+        "id": "tetration",
+        "name": "Tetration",
+        "description": "Look at the top 5 cards from your deck. Put one in your hand and discard the rest.",
+        "type": "command",
+        "cost": 3,
+        "health": 0,
+        "defense": 0,
+        "power": 0,
+        "kins": ["ant", "insect"],
+        "keywords": [],
+        "abilities": ["Look at the top 5 cards from your deck. Put one in your hand and discard the rest."],
+        "artists": ["Katie Ampersand"],
+        "set": "None",
+        "legality": {
+            "tournaments": "y",
+            "bloodful": "y",
+            "bloodless": "y"
+        },
+        "other": [],
+        "functions": ["draw card", "discard card"]
+    },
+    {
+        "id": "wall_of_living_rock",
+        "name": "Wall Of Living Rock",
+        "description": "When this creature enters the board, draw a card.\n\nWhen this creature dies, you do not gain any blood.",
+        "type": "creature",
+        "cost": 1,
+        "health": 2,
+        "defense": 0,
+        "power": 0,
+        "kins": [],
+        "keywords": [],
+        "abilities": ["When this creature enters the board, draw a card", "When this creature dies, you do not gain any blood."],
+        "artists": ["Katie Ampersand"],
+        "set": "Experiments",
+        "legality": {
+            "tournaments": "y",
+            "bloodful": "y",
+            "bloodless": "y"
+        },
+        "other": [],
+        "functions": ["draw card", "stall"]
+    },
+    {
+        "id": "hermit_of_the_snowy_peaks",
+        "name": "Hermit Of The Snowy Peaks",
+        "description": "If you control no other creatures at the beginning of your turn, this creature gets +3 power.",
+        "type": "creature",
+        "cost": 2,
+        "health": 3,
+        "defense": 0,
+        "power": 0,
+        "kins": [],
+        "keywords": [],
+        "abilities": ["If you control no other creatures at the beginning of your turn, this creature gets +3 power."],
+        "artists": ["Katie Ampersand"],
+        "set": "The Forest",
+        "legality": {
+            "tournaments": "y",
+            "bloodful": "y",
+            "bloodless": "y"
+        },
+        "other": [],
+        "functions": []
+    },
+    {
+        "id": "ant_serum",
+        "name": "Ant Serum",
+        "description": "A creature you control gains Kin Strength until end of turn.",
+        "type": "command",
+        "cost": 1,
+        "health": 0,
+        "defense": 0,
+        "power": 0,
+        "kins": [],
+        "keywords": [],
+        "abilities": ["A creature you control gains Kin Strength until end of turn."],
+        "artists": ["Katie Ampersand"],
+        "set": "Experiments",
+        "legality": {
+            "tournaments": "y",
+            "bloodful": "y",
+            "bloodless": "y"
+        },
+        "other": [],
+        "functions": ["modify card", "give kin strength"]
+    },
+    {
+        "id": "revivificate",
+        "name": "Revivificate",
+        "description": "Put a creature of cost four or less from your discard pile into your hand",
+        "type": "command",
+        "cost": 2,
+        "health": 0,
+        "defense": 0,
+        "power": 0,
+        "kins": [],
+        "keywords": [],
+        "abilities": ["Put a creature of cost four or less from your discard pile into your hand"],
+        "artists": ["Katie Ampersand"],
+        "set": "Experiments",
+        "legality": {
+            "tournaments": "y",
+            "bloodful": "y",
+            "bloodless": "y"
+        },
+        "other": [],
+        "functions": ["bounce card"]
     }
 ]
