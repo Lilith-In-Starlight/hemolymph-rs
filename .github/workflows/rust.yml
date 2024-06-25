@@ -3,7 +3,7 @@ name: Rust
 on:
   push:
     branches:
-      - 'releases/**'
+      - 'main'
 
 jobs:
   build:
