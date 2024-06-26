@@ -872,14 +872,14 @@
     {
         "id": "crypt_mantis",
         "name": "Crypt Mantis",
-        "description": "Insect Kin\nBifurcated Strike\n\nThis creature's strength is equal to half the amount of unique cards in your discard pile, rounded up.",
+        "description": "Insect Kin\nBifurcated Strike\n\nYou may sacrifice any of your creatures.\n\nWhenever you sacrifice a creature, add a +0/+0/+1 counter to this creature.",
         "type": "creature",
-        "cost": 5,
-        "health": 2,
+        "cost": 4,
+        "health": 3,
         "defense": 2,
-        "power": "X",
+        "power": 0,
         "kins": ["insect"],
-        "abilities": ["This creature's strength is equal to half the amount of unique cards in your discard pile, rounded up."],
+        "abilities": ["You may sacrifice any creatures from your board during your turn.", "Whenever you sacrifice a creature, add a +0/+0/+1 counter to this creature."],
         "artists": ["Katie Ampersand"],
         "set": "The Forest",
         "legality": {
@@ -1182,7 +1182,7 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": ["deal damage", "remove opponent creature text"]
+        "functions": ["attack", "remove opponent creature text"]
     },
     {
         "id": "nostalgia",
@@ -1442,5 +1442,71 @@
         },
         "other": [],
         "functions": ["bounce card"]
+    },
+    {
+        "id": "bluejay",
+        "name": "Bluejay",
+        "description": "Flying\nPay 2 blood for this card to attack. It will do so as if it had Bifurcated Strike.",
+        "type": "command",
+        "cost": 3,
+        "health": 0,
+        "defense": 0,
+        "power": 0,
+        "kins": [],
+        "keywords": [],
+        "abilities": ["Pay 2 blood for this card to attack. It will do so as if it had Bifurcated Strike."],
+        "artists": ["Katie Ampersand"],
+        "set": "Experiments",
+        "legality": {
+            "tournaments": "y",
+            "bloodful": "y",
+            "bloodless": "y"
+        },
+        "other": [],
+        "functions": ["bounce card"]
+    },
+    {
+        "id": "blood_rarefaction_engine",
+        "name": "Blood Rarefaction Engine",
+        "description": "At the beginning of your turn, add an Unstable counter to this card.\n\nRemove ten Unstable counters from this card to win the game.\n\nAt any point, your opponent may Liberate all their cards and creatures to remove all counters from this card.",
+        "type": "creature",
+        "cost": 3,
+        "health": 6,
+        "defense": 0,
+        "power": 0,
+        "kins": [],
+        "keywords": [],
+        "abilities": ["At the beginning of your turn, add an Unstable counter to this card.", "Remove ten Unstable counters from this card to win the game.", "At any point, your opponent may Liberate all their cards and creatures to remove all counters from this card."],
+        "artists": ["Katie Ampersand"],
+        "set": "Doomsday",
+        "legality": {
+            "tournaments": "y",
+            "bloodful": "y",
+            "bloodless": "y"
+        },
+        "other": [],
+        "functions": ["wincon", "mock opponent"]
+    },
+    {
+        "id": "rage_of_the_lurker",
+        "name": "Rage Of The Lurker",
+        "description": "Sorcery Kin\n\nDeal 1 damage to each creature.",
+        "type": "command",
+        "cost": 2,
+        "health": 0,
+        "defense": 0,
+        "power": 0,
+        "kins": ["sorcery"],
+        "keywords": [],
+        "abilities": ["Deal 1 damage to each creature"],
+        "artists": ["Katie Ampersand"],
+        "set": "The Forest",
+        "legality": {
+            "tournaments": "y",
+            "bloodful": "y",
+            "bloodless": "y"
+        },
+        "other": [],
+        "functions": ["attack all creatures"]
     }
 ]
