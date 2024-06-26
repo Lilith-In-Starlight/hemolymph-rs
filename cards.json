@@ -165,7 +165,8 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": ["fill board"]
+        "functions": ["fill board"],
+        "flavor_text": "You can't escape them. They're everywhere!"
     },
     {
         "id": "blightkin_child",
@@ -186,7 +187,8 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": ["convert creature"]
+        "functions": ["convert creature"],
+        "flavor_text": "Family found in a puddle of death"
     },
     {
         "id": "broken_robot",
@@ -207,7 +209,8 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": ["obstruct lane"]
+        "functions": ["obstruct lane"],
+        "flavor_text": "I don't know what you're expecting"
     },
     {
         "id": "bug_singer",
@@ -228,7 +231,8 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": ["move creature"]
+        "functions": ["move creature"],
+        "flavor_text": "A friend"
     },
     {
         "id": "child",
@@ -249,7 +253,8 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": ["move creature"]
+        "functions": ["move creature"],
+        "flavor_text": "She only knows how to hurt"
     },
     {
         "id": "crow",
@@ -271,7 +276,8 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": []
+        "functions": [],
+        "flavor_text": "Perhaps they're a bit too smart"
     },
     {
         "id": "cult_initiate",
@@ -314,7 +320,8 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": ["spawn vestige", "shuffle deck", "add card"]
+        "functions": ["spawn vestige", "shuffle deck", "add card"],
+        "flavor_text": "The blue kingdom pursues all knowledge, no matter the cost or intent."
     },
     {
         "id": "dog",
@@ -335,7 +342,8 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": []
+        "functions": [],
+        "flavor_text": "Man's best friend"
     },
     {
         "id": "dog_treats",
@@ -377,7 +385,8 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": ["modify creature", "give flying"]
+        "functions": ["modify creature", "give flying"],
+        "flavor_text": "While their reclusiveness makes it difficult to tell for certain, it seems that exile is more of a coming of age ritual among their peoples\n\n— Dr. Vats"
     },
     {
         "id": "17",
@@ -449,7 +458,8 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": ["win the game"]
+        "functions": ["win the game"],
+        "flavor_text": "HOW HOW HOW HOW HOW HOW HOW HOW\nHOW HOW HOW HOW HOW HOW HOW HOW\nHOW HOW HOW HOW HOW HOW HOW HOW\nHOW HOW HOW HOW HOW HOW HOW HOW\nHOW HOW HOW HOW HOW HOW HOW HOW\n"
     },
     {
         "id": "green_queen",
@@ -993,7 +1003,8 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": ["draw card"]
+        "functions": ["draw card"],
+        "flavor_text": "It was dripping wet when you found it"
     },
     {
         "id": "spellbook_of_luna",
@@ -1035,7 +1046,8 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": ["attack creature", "draw card"]
+        "functions": ["attack creature", "draw card"],
+        "flavor_text": "Powered by sorrowful thoughts."
     },
     {
         "id": "horrific_lurker_of_the_depths",
@@ -1056,7 +1068,8 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": ["attack creature", "draw card"]
+        "functions": ["attack creature", "draw card"],
+        "flavor_text": "Residing deep in shallow waters, observing with a sightless eye, I can't recognize these bodies.\n\n— Ruford Velki, 18 second before death"
     },
     {
         "id": "shattered_flask",
@@ -1140,7 +1153,8 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": ["attack twice"]
+        "functions": ["attack twice"],
+        "flavor_text": "Those born into pawnhood in the blue kingdom often seek glory wielding the staff."
     },
     {
         "id": "blue_rook",
@@ -1161,7 +1175,8 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": ["move"]
+        "functions": ["move"],
+        "flavor_text": "Rooks often take more strategic positions on the board"
     },
     {
         "id": "royal_engineer",
@@ -1203,7 +1218,8 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": ["re-summon creature"]
+        "functions": ["re-summon creature"],
+        "flavor_text": "Some of them ramble in endless longevity"
     },
     {
         "id": "blood_druid",
@@ -1224,7 +1240,8 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": ["gain blood"]
+        "functions": ["gain blood"],
+        "flavor_text": "It's her tears"
     },
     {
         "id": "flash_of_insight",
@@ -1245,7 +1262,8 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": ["draw card"]
+        "functions": ["draw card"],
+        "flavor_text": "I always figured she was being metaphorical about it.\n\nWe tried to understand it, but... it might as well be magic.\n\n— Dr. Vats"
     },
     {
         "id": "high_noon",
@@ -1309,7 +1327,8 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": ["heal pool"]
+        "functions": ["heal pool"],
+        "flavor_text": "I will live a hundred lives, and then I will create Normality."
     },
     {
         "id": "flask_of_ants",
@@ -1375,7 +1394,8 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": ["draw card", "stall"]
+        "functions": ["draw card", "stall"],
+        "flavor_text": "When Dr. Vats discovered the uses of blood, he began to investigate further.\n\nWe owe to him the knowledge of how blood can create creatures."
     },
     {
         "id": "hermit_of_the_snowy_peaks",
@@ -1397,7 +1417,8 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": []
+        "functions": [],
+        "flavor_text": "He lives away from airsic lowlanders"
     },
     {
         "id": "ant_serum",
@@ -1419,7 +1440,8 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": ["modify card", "give kin strength"]
+        "functions": ["modify card", "give kin strength"],
+        "flavor_text": "Hemolymph injections"
     },
     {
         "id": "revivificate",
@@ -1441,7 +1463,8 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": ["bounce card"]
+        "functions": ["bounce card"],
+        "flavor_text": "Dr. Vats' understanding of death is what ultimately jumpstarted his scientific career.\n\nIt was already a seldom permanent fate.\nNow that is for us to decide."
     },
     {
         "id": "bluejay",
@@ -1485,7 +1508,8 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": ["wincon", "mock opponent"]
+        "functions": ["wincon", "mock opponent"],
+        "flavor_text": "Do you know about blood rarefaction?\n\nYou see, blood is in some way the key to an incredible power. However, it is usually difficult to manifest it. But if you use moonstones to extract the hemoglobin from it, you create a vacuum inside it which breaks down the... um...\n\nAre you getting any of this...?"
     },
     {
         "id": "rage_of_the_lurker",
@@ -1507,6 +1531,7 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": ["attack all creatures"]
+        "functions": ["attack all creatures"],
+        "flavor_text": "Kitzka, my old friend! I believe I should assume this message finds you well, considering that you recently became immortal.\n\n— Anna Vakzë, 21 seconds before death"
     }
 ]
