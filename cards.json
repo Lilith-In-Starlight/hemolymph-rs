@@ -1132,7 +1132,8 @@
             "bloodless": "y"
         },
         "other": [],
-        "functions": []
+        "functions": [],
+        "flavor_text": "Blue pawns who do not seek glory often seek the prestige of science"
     },
     {
         "id": "blue_pawn",
@@ -1533,5 +1534,28 @@
         "other": [],
         "functions": ["attack all creatures"],
         "flavor_text": "Kitzka, my old friend! I believe I should assume this message finds you well, considering that you recently became immortal.\n\n— Anna Vakzë, 21 seconds before death"
+    },
+    {
+        "id": "kitzka_the_thief",
+        "name": "Kitzka The Thief",
+        "description": "Assassin Kin\n1 Blood to Flip\n\nWhen you flip this card, deal one damage to any target.",
+        "type": "creature",
+        "cost": 1,
+        "health": 2,
+        "defense": 1,
+        "power": 1,
+        "kins": ["assassin"],
+        "keywords": [],
+        "abilities": ["When you flip this card, deal one damage to any target."],
+        "artists": ["Katie Ampersand"],
+        "set": "The Red Kingdom",
+        "legality": {
+            "tournaments": "y",
+            "bloodful": "y",
+            "bloodless": "y"
+        },
+        "other": [],
+        "functions": ["attack target"],
+        "flavor_text": "Imagine you wake up ten years later as a wanted criminal far from home, and all your work has decayed or been vandalized."
     }
 ]
